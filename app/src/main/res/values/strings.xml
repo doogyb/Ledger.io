@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Revolut Listener</string>
+    <string name="service_name">Revolut Listener Service</string>
+</resources>
