@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Revolut Listener</string>
     <string name="service_name">Revolut Listener Service</string>
+    <string name="channel_name">notification_test</string>
+    <string name="channel_description">channel used for notification tests</string>
+    <string name="create_notification">Create Notification</string>
 </resources>
