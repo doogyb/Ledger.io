@@ -4,4 +4,6 @@
     <string name="channel_name">notification_test</string>
     <string name="channel_description">channel used for notification tests</string>
     <string name="create_notification">Create Notification</string>
+    <string name="monthly_spend_label">Your Monthly Remaining Spend</string>
+    <string name="daily_spend_label">Your Daily Remaining Spend</string>
 </resources>

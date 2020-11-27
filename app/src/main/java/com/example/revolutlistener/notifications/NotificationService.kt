@@ -1,16 +1,9 @@
 package com.example.revolutlistener.notifications
 
-import android.app.Notification
 import android.content.Intent
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
-import android.text.TextUtils
-import android.os.Parcel
-import android.os.Parcelable
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 private const val TAG = "NotificationService"
@@ -48,5 +41,6 @@ class NotificationService : NotificationListenerService() {
     override fun onNotificationPosted(sbn: StatusBarNotification) {
         var notificationText = sbn.notification.extras["android.text"].toString()
         Log.i(TAG, notificationText)
+
     }
 }
