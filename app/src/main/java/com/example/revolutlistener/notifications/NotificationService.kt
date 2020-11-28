@@ -4,20 +4,24 @@ import android.content.Intent
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
+import androidx.lifecycle.ViewModelProvider
+import com.example.revolutlistener.screens.breakdowns.RemainingMoneyViewModel
 
 
 private const val TAG = "NotificationService"
 
 class NotificationService : NotificationListenerService() {
 
+    private lateinit var remainingMoneyViewModel: RemainingMoneyViewModel
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
-        Log.v(TAG, "started succesfully")
-        Log.v(TAG, "and again?")
+        Log.v(TAG, "Listener service started successfully")
+
         val requestIntent = Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS")
         requestIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(requestIntent)
+
         return super.onStartCommand(intent, flags, startId)
     }
 
@@ -41,6 +45,7 @@ class NotificationService : NotificationListenerService() {
     override fun onNotificationPosted(sbn: StatusBarNotification) {
         var notificationText = sbn.notification.extras["android.text"].toString()
         Log.i(TAG, notificationText)
+
 
     }
 }

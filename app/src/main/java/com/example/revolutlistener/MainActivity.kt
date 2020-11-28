@@ -11,7 +11,9 @@ import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.revolutlistener.notifications.NotificationService
+import com.example.revolutlistener.screens.breakdowns.RemainingMoneyViewModel
 
 
 private const val ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners"
@@ -21,10 +23,13 @@ private const val CHANNEL_ID = "52"
 class MainActivity : AppCompatActivity() {
 
     private var notificationsCreated = 0
+    private lateinit var remainingMoneyViewModel: RemainingMoneyViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
         Intent(this, NotificationService::class.java).also { intent ->
             startService(intent)
         }
