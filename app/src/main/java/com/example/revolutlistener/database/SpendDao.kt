@@ -24,9 +24,8 @@ import androidx.room.Update
 import com.example.revolutlistener.database.Total
 
 @Dao
-interface SpendingDatabaseDao {
+interface SpendDao {
 
-//    Spend Table Queries
     @Insert
     suspend fun insertSpend(spend: Spend)
 
@@ -42,22 +41,5 @@ interface SpendingDatabaseDao {
     @Query("SELECT * FROM spend_table ORDER BY spendId DESC")
     fun getAllSpends(): LiveData<List<Spend>>
 
-//    Totals Table Queries
-    @Insert
-    suspend fun insertTotal(total: Total)
 
-    @Update
-    suspend fun updateTotal(total: Total)
-
-    @Query("SELECT * from totals_table WHERE totalId = :key")
-    suspend fun getTotal(key: Long): Spend?
-
-    @Query("DELETE from totals_table")
-    suspend fun clear()
-
-    @Query("SELECT * from totals_table ORDER BY totalId DESC LIMIT 1")
-    suspend fun getLatestTotal(): Total?
-
-    @Query("SELECT * FROM totals_table ORDER BY totalId DESC")
-    fun getAllTotals(): LiveData<List<Total>>
 }

@@ -20,21 +20,24 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.revolutlistener.database.Total
+import com.example.revolutlistener.database.TotalDao
 
-@Database(entities = [Spend::class], version = 1, exportSchema = false)
-abstract class SpendingDatabase : RoomDatabase() {
-    abstract val spendingDatabaseDao: SpendingDatabaseDao
+@Database(entities = [Spend::class, Total::class], version = 1, exportSchema = false)
+abstract class AppDatabase : RoomDatabase() {
+    abstract val spendDao: SpendDao
+    abstract val totalDao: TotalDao
 
     companion object {
         @Volatile
-        private var INSTANCE: SpendingDatabase? = null
-        fun getInstance(context: Context): SpendingDatabase {
+        private var INSTANCE: AppDatabase? = null
+        fun getInstance(context: Context): AppDatabase {
             synchronized(this) {
                 var instance = INSTANCE
                 if (instance == null) {
                     instance = Room.databaseBuilder(
                             context.applicationContext,
-                            SpendingDatabase::class.java,
+                            AppDatabase::class.java,
                             "spend_history_database"
                     )
                             .fallbackToDestructiveMigration()

@@ -4,11 +4,10 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.example.android.trackmysleepquality.database.SpendingDatabaseDao
+import com.example.android.trackmysleepquality.database.SpendDao
 
 class RemainingMoneyViewModel(
-    val database: SpendingDatabaseDao,
+    val database: SpendDao,
     application: Application
 ) : AndroidViewModel(application) {
 
