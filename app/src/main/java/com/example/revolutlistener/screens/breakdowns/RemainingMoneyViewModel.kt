@@ -18,7 +18,7 @@ class RemainingMoneyViewModel(
     private val _dailyRemaining = MutableLiveData(0)
     private val _monthlyRemaining = MutableLiveData(0)
 
-    private val currentTotal = MutableLiveData<Total>(Total(-1, 0, 0))
+    private val currentTotal = MutableLiveData(Total(0, 0, 0))
 
     val dailyRemaining: LiveData<Float> = Transformations.map(currentTotal) {
         it.euroAmount.toFloat() + it.centAmount / 10
@@ -36,12 +36,28 @@ class RemainingMoneyViewModel(
         }
     }
 
+    fun updateTotal() {
+
+        viewModelScope.launch {
+
+            val euro = (currentTotal.value?.euroAmount ?: 0) + 1
+            val newTotal = Total(null, euro, 0)
+            insertTotal(newTotal)
+            currentTotal.value = getCurrentTotalFromDatabase()
+
+        }
+
+    }
+
     private suspend fun getCurrentTotalFromDatabase(): Total {
-        Log.i(TAG, "Running suspended function to get current Total")
         var curTotal = database.getCurrentTotal()
         if (curTotal == null) {
-            curTotal = Total(-1, 0, 0)
+            curTotal = Total(0, 0, 0)
         }
         return curTotal
+    }
+
+    private suspend fun insertTotal(total: Total) {
+        database.insertTotal(total)
     }
 }
