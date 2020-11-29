@@ -6,9 +6,11 @@ import android.os.Parcelable
 import android.service.notification.StatusBarNotification
 import android.text.TextUtils
 import android.util.Log
+import com.example.revolutlistener.database.Total
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.random.Random.Default.nextInt
 
 private const val PAID = "Paid"
 
@@ -25,6 +27,11 @@ fun isMoneySpentNotification(sbn: StatusBarNotification): Boolean {
         }
     }
     return false
+}
+
+fun parseMonetaryAmount(sbn: StatusBarNotification): Total {
+    // Placeholder for now
+    return Total(null, nextInt(0, 1000), nextInt(0, 100))
 }
 
 fun getText(notification: Notification): List<String>? {

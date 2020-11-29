@@ -5,7 +5,11 @@ import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
 import androidx.lifecycle.ViewModelProvider
+import com.example.revolutlistener.database.AppDatabase
 import com.example.revolutlistener.screens.breakdowns.RemainingMoneyViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 private const val TAG = "NotificationService"
@@ -45,7 +49,10 @@ class NotificationService : NotificationListenerService() {
     override fun onNotificationPosted(sbn: StatusBarNotification) {
         var notificationText = sbn.notification.extras["android.text"].toString()
         Log.i(TAG, notificationText)
-
+        val dataSource = AppDatabase.getInstance(application).totalDao
+        GlobalScope.launch {
+            dataSource.insertTotal(parseMonetaryAmount(sbn))
+        }
 
     }
 }
