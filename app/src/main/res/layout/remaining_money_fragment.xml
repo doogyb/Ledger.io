@@ -41,7 +41,7 @@
                     android:layout_marginEnd="3dip"
                     android:layout_weight="1.0"
                     android:gravity="center"
-                    android:text="@{'€' + Integer.toString(viewmodel.dailyRemaining)}"
+                    android:text="@{'€' + Float.toString(viewmodel.dailyRemaining)}"
                     android:textSize="40dp" />
 
                 <TextView
