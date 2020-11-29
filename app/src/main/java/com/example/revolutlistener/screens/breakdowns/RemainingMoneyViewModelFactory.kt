@@ -3,10 +3,10 @@ package com.example.revolutlistener.screens.breakdowns
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.revolutlistener.database.TotalDao
+import com.example.revolutlistener.database.BudgetDao
 
 class SleepTrackerViewModelFactory(
-    private val dataSource: TotalDao,
+    private val dataSource: BudgetDao,
     private val application: Application
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")

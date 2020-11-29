@@ -49,9 +49,9 @@ class NotificationService : NotificationListenerService() {
     override fun onNotificationPosted(sbn: StatusBarNotification) {
         var notificationText = sbn.notification.extras["android.text"].toString()
         Log.i(TAG, notificationText)
-        val dataSource = AppDatabase.getInstance(application).totalDao
+        val budget = AppDatabase.getInstance(application).budgetDao
         GlobalScope.launch {
-            dataSource.insertTotal(parseMonetaryAmount(sbn))
+            budget.insert(parseMonetaryAmount(sbn))
         }
 
     }

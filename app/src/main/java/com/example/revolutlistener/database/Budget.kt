@@ -5,11 +5,10 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "totals_table")
-data class Total(
+@Entity(tableName = "budget_table")
+data class Budget(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name="total_key")
-    var totalId: Long?,
+    var budgetId: Long?,
     @ColumnInfo(name = "euro_amount")
     var euroAmount: Int = 0,
     @ColumnInfo(name = "cent_amount")

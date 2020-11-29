@@ -24,7 +24,7 @@ class RemainingMoney : Fragment() {
         binding = RemainingMoneyFragmentBinding.inflate(inflater)
 
         val application = requireNotNull(this.activity).application
-        val dataSource = AppDatabase.getInstance(application).totalDao
+        val dataSource = AppDatabase.getInstance(application).budgetDao
 
         val viewModelFactory = SleepTrackerViewModelFactory(dataSource, application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(RemainingMoneyViewModel::class.java)

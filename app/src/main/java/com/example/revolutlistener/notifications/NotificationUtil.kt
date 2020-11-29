@@ -6,7 +6,7 @@ import android.os.Parcelable
 import android.service.notification.StatusBarNotification
 import android.text.TextUtils
 import android.util.Log
-import com.example.revolutlistener.database.Total
+import com.example.revolutlistener.database.Budget
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -29,9 +29,9 @@ fun isMoneySpentNotification(sbn: StatusBarNotification): Boolean {
     return false
 }
 
-fun parseMonetaryAmount(sbn: StatusBarNotification): Total {
+fun parseMonetaryAmount(sbn: StatusBarNotification): Budget {
     // Placeholder for now
-    return Total(null, nextInt(0, 1000), nextInt(0, 100))
+    return Budget(null, nextInt(0, 1000), nextInt(0, 100))
 }
 
 fun getText(notification: Notification): List<String>? {
