@@ -1,15 +1,15 @@
 package com.example.revolutlistener.screens.breakdowns
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
-import com.example.revolutlistener.database.Budget
-import com.example.revolutlistener.database.BudgetDao
+import com.example.revolutlistener.database.LedgerDao
 import kotlinx.coroutines.launch
 
 const val TAG = "RemainingMoneyViewModel"
 
 class RemainingMoneyViewModel(
-    private val database: BudgetDao,
+    ledger: LedgerDao,
     application: Application
 ) : AndroidViewModel(application) {
 
@@ -17,46 +17,25 @@ class RemainingMoneyViewModel(
     private val _dailyRemaining = MutableLiveData(0)
     private val _monthlyRemaining = MutableLiveData(0)
 
-    private val currentBudget = MutableLiveData(Budget(0, 0, 0))
+    private val currentBudget = ledger.getCurrentBudget()
 
-    val dailyRemaining: LiveData<Float> = Transformations.map(currentBudget) {
-        it.euroAmount.toFloat() + it.centAmount / 10
+    val dailyRemaining: LiveData<String> = Transformations.map(currentBudget) { budget ->
+        budget?.toString() ?: "€0.00"
     }
     val monthlyRemaining: LiveData<Int> = _monthlyRemaining
 
-
-    init {
-        initializeCurrentBudget()
-    }
-
-    private fun initializeCurrentBudget() {
-        viewModelScope.launch {
-            currentBudget.value = getCurrentBudgetFromDatabase()
-        }
-    }
-
-    fun updateBudget() {
-
-        viewModelScope.launch {
-
-            val euro = (currentBudget.value?.euroAmount ?: 0) + 1
-            val newBudget = Budget(null, euro, 0)
-            insertBudget(newBudget)
-            currentBudget.value = getCurrentBudgetFromDatabase()
-
-        }
-
-    }
-
-    private suspend fun getCurrentBudgetFromDatabase(): Budget {
-        var curBudget = database.getCurrentBudget()
-        if (curBudget == null) {
-            curBudget = Budget(0, 0, 0)
-        }
-        return curBudget
-    }
-
-    private suspend fun insertBudget(budget: Budget) {
-        database.insert(budget)
-    }
+//    init {
+//        initializeCurrentBudget()
+//    }
+//
+//
+//    private fun initializeCurrentBudget(): LiveData<Amount?> {
+//        val budget = ledger.getCurrentBudget()
+//        Log.i(TAG, budget.toString())
+//        if (budget.value == null) {
+//            Log.i(TAG, "Budget Value from getCurrentBudget is null...")
+//            return MutableLiveData(Amount(0, 0))
+//        }
+//        return budget
+//    }
 }

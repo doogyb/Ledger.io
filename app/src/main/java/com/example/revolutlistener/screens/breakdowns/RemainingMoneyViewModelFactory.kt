@@ -4,9 +4,10 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.revolutlistener.database.BudgetDao
+import com.example.revolutlistener.database.LedgerDao
 
-class SleepTrackerViewModelFactory(
-    private val dataSource: BudgetDao,
+class RemainingMoneyViewModelFactory(
+    private val dataSource: LedgerDao,
     private val application: Application
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")

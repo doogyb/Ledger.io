@@ -18,15 +18,15 @@ class RemainingMoney : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate view and obtain an instance of the binding class
 
         binding = RemainingMoneyFragmentBinding.inflate(inflater)
 
         val application = requireNotNull(this.activity).application
-        val dataSource = AppDatabase.getInstance(application).budgetDao
+        val dataSource = AppDatabase.getInstance(application).ledger
 
-        val viewModelFactory = SleepTrackerViewModelFactory(dataSource, application)
+        val viewModelFactory = RemainingMoneyViewModelFactory(dataSource, application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(RemainingMoneyViewModel::class.java)
 
         binding.viewmodel = viewModel

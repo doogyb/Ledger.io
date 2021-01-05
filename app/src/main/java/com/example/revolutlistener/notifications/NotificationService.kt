@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModelProvider
 import com.example.revolutlistener.database.AppDatabase
 import com.example.revolutlistener.screens.breakdowns.RemainingMoneyViewModel
+import com.example.revolutlistener.trackers.handleSpend
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -49,9 +50,8 @@ class NotificationService : NotificationListenerService() {
     override fun onNotificationPosted(sbn: StatusBarNotification) {
         var notificationText = sbn.notification.extras["android.text"].toString()
         Log.i(TAG, notificationText)
-        val budget = AppDatabase.getInstance(application).budgetDao
-        GlobalScope.launch {
-            budget.insert(parseMonetaryAmount(sbn))
+        if (isMoneySpentNotification(notificationText)) {
+            handleSpend(application, parseMonetaryAmount(sbn));
         }
 
     }

@@ -10,10 +10,10 @@ import androidx.room.Update
 interface SpendDao {
 
     @Insert
-    suspend fun insertSpend(spend: Spend)
+    suspend fun insert(spend: Spend)
 
     @Update
-    suspend fun updateSpend(spend: Spend)
+    suspend fun update(spend: Spend)
 
     @Query("SELECT * from spend_table WHERE spend_key = :key")
     suspend fun getSpend(key: Long): Spend?

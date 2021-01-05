@@ -5,8 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [Spend::class, Budget::class], version = 4, exportSchema = false)
+@Database(entities = [AmountTable::class, Spend::class, Budget::class], version = 6, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
+    abstract val ledger: LedgerDao
+    abstract val amountDao: AmountDao
     abstract val spendDao: SpendDao
     abstract val budgetDao: BudgetDao
 
