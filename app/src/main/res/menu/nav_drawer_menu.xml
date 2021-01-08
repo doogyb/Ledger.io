@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/settings"
+        android:id="@+id/settings_fragment"
         android:title="@string/settings_label" />
     <item
-        android:id="@+id/about"
+        android:id="@+id/about_fragment"
         android:title="About" />
 </menu>

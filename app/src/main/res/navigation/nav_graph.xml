@@ -3,20 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/remainingMoney">
+    app:startDestination="@id/budget_fragment">
     <fragment
-        android:id="@+id/remainingMoney"
+        android:id="@+id/budget_fragment"
         android:name="com.example.revolutlistener.screens.budget.RemainingMoney"
         android:label="RemainingMoney" >
     </fragment>
     <fragment
-        android:id="@+id/settings"
+        android:id="@+id/settings_fragment"
         android:name="com.example.revolutlistener.screens.settings.SettingsFragment"
         android:label="settings_fragment"
-        tools:layout="@layout/fragment_settings" >
+        tools:layout="@layout/settings_fragment" >
     </fragment>
     <fragment
-        android:id="@+id/about"
+        android:id="@+id/about_fragment"
         android:name="com.example.revolutlistener.screens.About"
         android:label="About" />
+    <fragment
+        android:id="@+id/spending_fragment"
+        android:name="com.example.revolutlistener.screens.spending.SpendingFragment"
+        android:label="spending_fragment"
+        tools:layout="@layout/spending_fragment" />
 </navigation>

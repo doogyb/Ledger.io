@@ -10,14 +10,9 @@ import android.os.Bundle
 import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.revolutlistener.databinding.ActivityMainBinding
@@ -55,8 +50,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.about -> {
-                    navController.navigate(R.id.about)
+                R.id.about_fragment -> {
+                    navController.navigate(R.id.about_fragment)
                     true
                 }
                 else -> false
@@ -68,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.about, R.id.settings -> {
+                R.id.about_fragment, R.id.settings_fragment -> {
                     binding.bottomNav.isVisible = false
                 }
                 else -> binding.bottomNav.isVisible = true
