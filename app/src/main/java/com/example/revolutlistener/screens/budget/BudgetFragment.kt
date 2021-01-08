@@ -9,9 +9,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.revolutlistener.database.AppDatabase
 import com.example.revolutlistener.databinding.BudgetFragmentBinding
 
-class RemainingMoney : Fragment() {
+class BudgetFragment : Fragment() {
 
-    private lateinit var viewModel: RemainingMoneyViewModel
+    private lateinit var viewModel: BudgetViewModel
     private lateinit var binding: BudgetFragmentBinding
 
     override fun onCreateView(
@@ -26,8 +26,8 @@ class RemainingMoney : Fragment() {
         val application = requireNotNull(this.activity).application
         val dataSource = AppDatabase.getInstance(application).ledger
 
-        val viewModelFactory = BudgetViewModelFactory(dataSource, application)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(RemainingMoneyViewModel::class.java)
+        val viewModelFactory = BudgetViewModelFactory(application)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(BudgetViewModel::class.java)
 
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this

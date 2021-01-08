@@ -4,19 +4,19 @@ import android.content.Intent
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
-import com.example.revolutlistener.screens.budget.RemainingMoneyViewModel
-import com.example.revolutlistener.trackers.handleSpend
-
-
+import com.example.revolutlistener.database.AppDatabase
+import com.example.revolutlistener.repository.LedgerRepository
 private const val TAG = "NotificationService"
 
 class NotificationService : NotificationListenerService() {
 
-    private lateinit var remainingMoneyViewModel: RemainingMoneyViewModel
+    private lateinit var ledgerRepository: LedgerRepository
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
         Log.v(TAG, "Listener service started successfully")
+
+        ledgerRepository = LedgerRepository(AppDatabase.getInstance(this))
 
         val requestIntent = Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS")
         requestIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -27,26 +27,13 @@ class NotificationService : NotificationListenerService() {
 
     override fun onListenerConnected() {
         Log.v(TAG, "Listener is connected!")
-        // not entirely sure I'll need the below
-//        val acNot = activeNotifications
-//        activeNotifications.forEach {
-//            if (it.packageName == "com.revolut.revolut") {
-//
-//                Log.v(TAG + " revextras", it.toString())
-//                Log.v(TAG + " revextras", it.notification.contentView.toString())
-//                Log.v(TAG + " revextras", it.notification.extras.toString())
-//                Log.v(TAG + " moneyShot: ", getText(it.notification).toString())
-//            }
-//            Log.v(TAG + " notif: ", it.toString())
-//
-//        }
     }
 
     override fun onNotificationPosted(sbn: StatusBarNotification) {
         var notificationText = sbn.notification.extras["android.text"].toString()
         Log.i(TAG, notificationText)
         if (isMoneySpentNotification(notificationText)) {
-            handleSpend(application, parseMonetaryAmount(sbn));
+            ledgerRepository.handleSpend(parseMonetaryAmount(sbn));
         }
 
     }

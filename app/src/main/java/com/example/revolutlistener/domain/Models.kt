@@ -1,20 +1,10 @@
-package com.example.revolutlistener.database
+package com.example.revolutlistener.domain
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import com.example.revolutlistener.database.AmountTable
 
 fun Boolean.toInt() = if (this) 1 else 0
 
-@Entity(tableName = "amount_table")
-open class AmountTable(
-    @ColumnInfo(name = "euro_amount")
-    val euro: Int,
-    @ColumnInfo(name = "cent_amount")
-    val cent: Int,
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0,
-)
+
 
 open class Amount(euro: Int, cent: Int, id: Long=0) : AmountTable(euro, cent, id) {
 

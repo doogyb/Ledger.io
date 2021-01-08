@@ -6,8 +6,8 @@ import android.os.Parcelable
 import android.service.notification.StatusBarNotification
 import android.text.TextUtils
 import android.util.Log
-import com.example.revolutlistener.database.Amount
 import com.example.revolutlistener.database.Budget
+import com.example.revolutlistener.domain.Amount
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList

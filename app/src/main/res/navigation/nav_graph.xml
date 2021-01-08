@@ -6,7 +6,7 @@
     app:startDestination="@id/budget_fragment">
     <fragment
         android:id="@+id/budget_fragment"
-        android:name="com.example.revolutlistener.screens.budget.RemainingMoney"
+        android:name="com.example.revolutlistener.screens.budget.BudgetFragment"
         android:label="RemainingMoney" >
     </fragment>
     <fragment
