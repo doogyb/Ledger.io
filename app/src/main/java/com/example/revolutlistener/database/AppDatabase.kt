@@ -8,8 +8,8 @@ import androidx.room.RoomDatabase
 @Database(entities = [AmountTable::class, Spend::class, Budget::class], version = 6, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract val ledger: LedgerDao
-    abstract val amountDao: AmountDao
     abstract val spendDao: SpendDao
+    abstract val amountDao: AmountDao
     abstract val budgetDao: BudgetDao
 
     companion object {

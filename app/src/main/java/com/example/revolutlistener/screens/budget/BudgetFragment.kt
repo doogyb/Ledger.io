@@ -1,4 +1,4 @@
-package com.example.revolutlistener.screens.breakdowns
+package com.example.revolutlistener.screens.budget
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.revolutlistener.database.AppDatabase
-import com.example.revolutlistener.databinding.RemainingMoneyFragmentBinding
+import com.example.revolutlistener.databinding.FragmentBreakdownBinding
 
 class RemainingMoney : Fragment() {
-    // Obtain ViewModel from ViewModelProviders
+
     private lateinit var viewModel: RemainingMoneyViewModel
-    private lateinit var binding: RemainingMoneyFragmentBinding
+    private lateinit var binding: FragmentBreakdownBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,12 +21,12 @@ class RemainingMoney : Fragment() {
     ): View {
         // Inflate view and obtain an instance of the binding class
 
-        binding = RemainingMoneyFragmentBinding.inflate(inflater)
+        binding = FragmentBreakdownBinding.inflate(inflater)
 
         val application = requireNotNull(this.activity).application
         val dataSource = AppDatabase.getInstance(application).ledger
 
-        val viewModelFactory = RemainingMoneyViewModelFactory(dataSource, application)
+        val viewModelFactory = BudgetViewModelFactory(dataSource, application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(RemainingMoneyViewModel::class.java)
 
         binding.viewmodel = viewModel

@@ -6,11 +6,17 @@ import androidx.room.PrimaryKey
 
 fun Boolean.toInt() = if (this) 1 else 0
 
-open class Amount(
+@Entity(tableName = "amount_table")
+open class AmountTable(
     @ColumnInfo(name = "euro_amount")
-    var euro: Int,
+    val euro: Int,
     @ColumnInfo(name = "cent_amount")
-    var cent: Int) {
+    val cent: Int,
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0,
+)
+
+open class Amount(euro: Int, cent: Int, id: Long=0) : AmountTable(euro, cent, id) {
 
     override fun equals(other: Any?): Boolean = (other is Amount && euro == other.euro && cent == other.cent)
 
@@ -27,19 +33,22 @@ open class Amount(
         return Amount(resultingEuros, resultingCents)
     }
 
+    operator fun div(days: Int): Amount {
+        val total = euro + cent / 100
+        val divided: Double = total.toDouble() / days.toDouble()
+        val euros = divided.toInt()
+        val cents = ((divided - euros) * 100).toInt()
+        return Amount(euros, cents)
+    }
+
     override fun toString(): String {
         return "€$euro.$cent"
     }
 
-}
+    override fun hashCode(): Int {
+        var result = euro
+        result = 31 * result + cent
+        return result
+    }
 
-@Entity(tableName = "amount_table")
-class AmountTable(
-    euro: Int = 0,
-    cent: Int = 0,
-    @PrimaryKey(autoGenerate = true)
-    var id: Long = 0,
-) : Amount(
-    euro,
-    cent
-)
+}

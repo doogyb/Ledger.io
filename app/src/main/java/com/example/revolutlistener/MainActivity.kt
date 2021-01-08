@@ -10,10 +10,19 @@ import android.os.Bundle
 import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.core.view.isVisible
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
+import com.example.revolutlistener.databinding.ActivityMainBinding
 import com.example.revolutlistener.notifications.NotificationService
-import com.example.revolutlistener.screens.breakdowns.RemainingMoneyViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 private const val ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners"
@@ -22,12 +31,12 @@ private const val CHANNEL_ID = "52"
 
 class MainActivity : AppCompatActivity() {
 
-    private var notificationsCreated = 0
-    private lateinit var remainingMoneyViewModel: RemainingMoneyViewModel
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
 
         Intent(this, NotificationService::class.java).also { intent ->
@@ -36,6 +45,41 @@ class MainActivity : AppCompatActivity() {
         createNotificationChannel()
         Log.d(TAG, "is enabled: " + isNotificationServiceEnabled())
 
+
+        val navController = findNavController(R.id.nav_host_fragment)
+
+        binding.toolbar.setNavigationOnClickListener {
+            NavigationUI.navigateUp(navController, binding.drawerLayout)
+
+        }
+
+        binding.toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.about -> {
+                    navController.navigate(R.id.about)
+                    true
+                }
+                else -> false
+            }
+        }
+
+        NavigationUI.setupWithNavController(binding.navView, navController)
+        binding.bottomNav.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.about, R.id.settings -> {
+                    binding.bottomNav.isVisible = false
+                }
+                else -> binding.bottomNav.isVisible = true
+            }
+        }
+    }
+
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = this.findNavController(R.id.nav_host_fragment)
+        return NavigationUI.navigateUp(navController, binding.drawerLayout)
     }
 
     private fun createNotificationChannel() {

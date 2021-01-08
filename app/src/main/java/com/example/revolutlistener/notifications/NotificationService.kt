@@ -4,13 +4,8 @@ import android.content.Intent
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
-import androidx.lifecycle.ViewModelProvider
-import com.example.revolutlistener.database.AppDatabase
-import com.example.revolutlistener.screens.breakdowns.RemainingMoneyViewModel
+import com.example.revolutlistener.screens.budget.RemainingMoneyViewModel
 import com.example.revolutlistener.trackers.handleSpend
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 
 private const val TAG = "NotificationService"

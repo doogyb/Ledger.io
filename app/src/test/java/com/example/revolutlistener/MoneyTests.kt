@@ -28,4 +28,13 @@ class MoneyTests {
         assertEquals(Amount(3, 30), Amount(5, 10) - Amount(1, 80))
 
     }
+    @Test
+    fun division_isCorrect() {
+        // Simple division
+        assertEquals(Amount(5, 0), Amount(25, 0) / 5)
+        // Recurring
+        assertEquals(Amount(3, 33), Amount(10, 0) / 3)
+        // Dividing by 31 days
+        assertEquals(Amount(16, 12), Amount(500, 0) / 31)
+    }
 }

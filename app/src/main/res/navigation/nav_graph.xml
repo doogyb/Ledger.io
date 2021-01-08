@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/remainingMoney">
     <fragment
         android:id="@+id/remainingMoney"
-        android:name="com.example.revolutlistener.screens.breakdowns.RemainingMoney"
-        android:label="RemainingMoney" />
+        android:name="com.example.revolutlistener.screens.budget.RemainingMoney"
+        android:label="RemainingMoney" >
+    </fragment>
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.example.revolutlistener.screens.settings.SettingsFragment"
+        android:label="settings_fragment"
+        tools:layout="@layout/fragment_settings" >
+    </fragment>
+    <fragment
+        android:id="@+id/about"
+        android:name="com.example.revolutlistener.screens.About"
+        android:label="About" />
 </navigation>

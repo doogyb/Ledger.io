@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/remainingMoney"
+        android:enabled="true"
+        android:icon="@drawable/budget"
+        android:title="@string/budget_label"/>
+
+    <item
+        android:id="@+id/graph"
+        android:enabled="true"
+        android:icon="@drawable/graph"
+        android:title="@string/history"/>
+
+</menu>
