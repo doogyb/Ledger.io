@@ -15,6 +15,11 @@ interface LedgerDao {
 
     @Query("SELECT amount_table.euro_amount, amount_table.cent_amount, amount_table.id FROM amount_table INNER JOIN budget_table on budget_table.id == amount_table.id ORDER BY amount_table.id DESC")
     fun getAllBudgets(): LiveData<List<Amount>>
+
+    // Needs to be synchronous in order to update the newest budget
+    // Better to constantly keep track of latest budget in Repo?
+    @Query("SELECT amount_table.euro_amount, amount_table.cent_amount, amount_table.id FROM amount_table INNER JOIN budget_table on budget_table.id == amount_table.id ORDER BY amount_table.id DESC LIMIT 1")
+    fun getCurrentBudget(): Amount
 }
 
 @Dao

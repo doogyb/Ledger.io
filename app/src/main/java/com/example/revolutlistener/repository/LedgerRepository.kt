@@ -16,14 +16,21 @@ class LedgerRepository(private val database: AppDatabase) {
     val budgets: LiveData<List<Amount>> = database.ledger.getAllBudgets()
 
     fun handleSpend(amount: Amount) {
+        Log.i(TAG, "budgets: $budgets")
+        val topBudget = budgets.value?.get(0)
+        Log.i(TAG, "budgets: $topBudget")
         GlobalScope.launch {
 
             Log.i(TAG, "handling Spend...")
+
             var id = database.amountDao.insert(amount)
             database.spendDao.insert(Spend(id))
 
-            val currentBudget = budgets.value?.get(0) ?: Amount(0, 0)
+            val currentBudget = database.ledger.getCurrentBudget()
             val newBudget = currentBudget - amount
+
+            Log.i(TAG, "curentBudget: $currentBudget, spend: $amount, newBudget: $newBudget")
+
             id = database.amountDao.insert(newBudget)
             database.budgetDao.insert(Budget(id))
             database.spendDao.insert(Spend(id))
