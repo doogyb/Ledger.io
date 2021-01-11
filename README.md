@@ -1,7 +1,9 @@
 
-# revolut-listener	
+# Ledger.io
 
-revolut-listener is intended to be a simple app which listens to the notifications the [Revolut](www.revolut.com) app makes when using it to purchase products. The aim of this app is to replace the original functionality offered by Revolut which tracked your spending and notified how much you had spend in a given day, and how much you had left to spend in a given budget period.
+Ledger.io is intended to be a simple app which listens to the notifications made by apps such as [Revolut](www.revolut.com) and [Google Pay](www.pay.google.com) when they are used to purchase products. The aim of this app is to
+aggregate the output of these apps to track your spending and notify you of how much you spend in a given day
+and how much you have left to spend in a given budget period.
 
 ## Built With
 
@@ -11,19 +13,18 @@ revolut-listener is intended to be a simple app which listens to the notificatio
 
 - [ ] Implement Settings
 	- [ ] Currency setting
-	- [ ] Daily limits, Monthly Budgets
-- [ ] Fix TextView layout centering issue
-- [ ] ViewModel update on Notification Ping, update on `onResume()` 
+	- [ ] Daily limits
+	- [x] Monthly Budgets
 - [ ] Visual Representation of Budget remaining (simple Progressbar for now)
 - [ ] Budget and Spending breakdown
 	- [ ] Graph showing spending / time
 	- [ ] Types of spending (if possible?)
-	
+
 
 ### In Progress
 
 - [ ] Parse Notification for spend amount
-- [ ] Remove redundant Spend class - this can be computed using historical budget info
+
 
 ### Done ✓
 
@@ -32,3 +33,8 @@ revolut-listener is intended to be a simple app which listens to the notificatio
 - [x] Simple layout for RemainingMoneyFragment
 - [x] Create Schema for the DB, create DB and DAOs, implement update methods, test they work.
 - [x] Build Service that listens to Notifications, update DB when Notification pings
+- [x] Fix TextView layout centering issue
+- [x] ViewModel update on Notification Ping, update on `onResume()`
+- [x] Remove redundant Spend class - this can be computed using historical budget info
+- [x] Notify user of how much is left to spend in the day when money has been spent
+- [x] Implement AlarmManger to reset budget after given period 
