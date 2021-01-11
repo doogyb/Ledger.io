@@ -18,9 +18,11 @@ class NotificationService : NotificationListenerService() {
 
         ledgerRepository = LedgerRepository(AppDatabase.getInstance(this))
 
-        val requestIntent = Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS")
-        requestIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(requestIntent)
+        // Should only be called if app has not been given valid permissions.
+        Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS").also {
+            it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(it)
+        }
 
         return super.onStartCommand(intent, flags, startId)
     }

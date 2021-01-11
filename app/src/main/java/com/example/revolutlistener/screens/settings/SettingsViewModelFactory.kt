@@ -6,12 +6,11 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.revolutlistener.database.LedgerDao
 
 class SettingsViewModelFactory(
-    private val dataSource: LedgerDao,
     private val application: Application
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SettingsViewModel::class.java)) {
-            return SettingsViewModel(dataSource, application) as T
+            return SettingsViewModel(application) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
