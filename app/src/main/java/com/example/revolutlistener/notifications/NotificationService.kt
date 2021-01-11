@@ -19,10 +19,10 @@ class NotificationService : NotificationListenerService() {
         ledgerRepository = LedgerRepository(AppDatabase.getInstance(this))
 
         // Should only be called if app has not been given valid permissions.
-        Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS").also {
-            it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            startActivity(it)
-        }
+//        Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS").also {
+//            it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//            startActivity(it)
+//        }
 
         return super.onStartCommand(intent, flags, startId)
     }
@@ -32,10 +32,9 @@ class NotificationService : NotificationListenerService() {
     }
 
     override fun onNotificationPosted(sbn: StatusBarNotification) {
-        var notificationText = sbn.notification.extras["android.text"].toString()
-        Log.i(TAG, notificationText)
-        if (isMoneySpentNotification(notificationText)) {
-            ledgerRepository.handleSpend(parseMonetaryAmount(sbn));
+
+        if (isMoneySpentNotification(sbn)) {
+            ledgerRepository.handleSpend(this, parseMonetaryAmount(sbn));
         }
 
     }

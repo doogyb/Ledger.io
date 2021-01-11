@@ -1,16 +1,20 @@
 package com.example.revolutlistener
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.text.TextUtils
 import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
@@ -38,8 +42,27 @@ class MainActivity : AppCompatActivity() {
             startService(intent)
         }
         createNotificationChannel()
-        Log.d(TAG, "is enabled: " + isNotificationServiceEnabled())
+        val requestPermissionLauncher =
+            registerForActivityResult(
+                ActivityResultContracts.RequestPermission()
+            ) { isGranted: Boolean ->
+                if (isGranted) {
+                    // Permission is granted. Continue the action or workflow in your
+                    // app.
+                    Log.d(TAG, "Permission allowed")
 
+                } else {
+                    // Explain to the user that the feature is unavailable because the
+                    // features requires a permission that the user has denied. At the
+                    // same time, respect the user's decision. Don't link to system
+                    // settings in an effort to convince the user to change their
+                    // decision.
+                    Log.d(TAG, "Permission not allowed")
+                }
+            }
+
+        requestPermissionLauncher.launch(
+            Manifest.permission.ACCESS_NOTIFICATION_POLICY)
 
         val navController = findNavController(R.id.nav_host_fragment)
 

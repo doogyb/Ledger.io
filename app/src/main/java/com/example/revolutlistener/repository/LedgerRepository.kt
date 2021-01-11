@@ -1,5 +1,6 @@
 package com.example.revolutlistener.repository
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.revolutlistener.database.AppDatabase
@@ -8,6 +9,7 @@ import com.example.revolutlistener.database.Spend
 import com.example.revolutlistener.domain.Amount
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import com.example.revolutlistener.notifications.createUpdatedBudgetNotification
 
 const val TAG = "LedgerRepository"
 
@@ -15,7 +17,7 @@ class LedgerRepository(private val database: AppDatabase) {
 
     val budgets: LiveData<List<Amount>> = database.ledger.getAllBudgets()
 
-    fun handleSpend(amount: Amount) {
+    fun handleSpend(context: Context, amount: Amount) {
         Log.i(TAG, "budgets: $budgets")
         val topBudget = budgets.value?.get(0)
         Log.i(TAG, "budgets: $topBudget")
@@ -34,6 +36,10 @@ class LedgerRepository(private val database: AppDatabase) {
             id = database.amountDao.insert(newBudget)
             database.budgetDao.insert(Budget(id))
             database.spendDao.insert(Spend(id))
+
+            // TODO Actual amount left to spend in the day is different to average
+            createUpdatedBudgetNotification(context, newBudget / 30)
+
         }
     }
 

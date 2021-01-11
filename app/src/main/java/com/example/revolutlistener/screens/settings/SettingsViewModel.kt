@@ -33,10 +33,11 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
             PendingIntent.getBroadcast(context, 0, intent, 0)
         }
 
+        // TODO use budgetInterval - in particular implement calendar picker
         alarmMgr?.setInexactRepeating(
             AlarmManager.RTC_WAKEUP,
             System.currentTimeMillis(),
-            1000 * 10,
+            AlarmManager.INTERVAL_DAY * 30,
             alarmIntent
         )
 
