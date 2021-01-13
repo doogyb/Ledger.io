@@ -1,57 +1,67 @@
 package com.example.revolutlistener.screens.settings
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context
-import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.os.SystemClock
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.navigation.fragment.findNavController
+import android.text.InputType
+import android.text.TextUtils
+import androidx.lifecycle.ViewModelProvider
+import androidx.preference.EditTextPreference
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
 import com.example.revolutlistener.R
-import com.example.revolutlistener.ResetBudgetReceiver
-import com.example.revolutlistener.database.AppDatabase
-import com.example.revolutlistener.databinding.SettingsFragmentBinding
 
 const val TAG = "SettingsFragment"
 
-class SettingsFragment : Fragment() {
+class SettingsFragment : PreferenceFragmentCompat() {
+
 
     private lateinit var viewModel: SettingsViewModel
-    private lateinit var binding : SettingsFragmentBinding
 
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        binding = SettingsFragmentBinding.inflate(inflater)
+        setPreferencesFromResource(R.xml.preferences, rootKey)
 
         val application = requireNotNull(this.activity).application
-
         val viewModelFactory = SettingsViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(SettingsViewModel::class.java)
-        binding.viewmodel = viewModel
 
-        binding.saveSettings.setOnClickListener {
+        findPreference<EditTextPreference>("budget_preference")?.apply {
 
-            val amountString = binding.budgetAmount.text.toString()
-            val amount = Integer.parseInt(if (amountString == "") "0" else amountString)
+            summaryProvider = Preference.SummaryProvider<EditTextPreference> {
+                val text = it.text
+                if (TextUtils.isEmpty(text)) {
+                    "Set your budget amount here"
+                } else {
+                    "€$text"
+                }
+            }
 
-            val intervalString = binding.budgetInterval.text.toString()
-            val interval = Integer.parseInt(if (intervalString == "") "0" else intervalString)
-
-            viewModel.onSaveSettings(amount, interval)
-            findNavController().navigate(R.id.budget_fragment)
+            setOnBindEditTextListener {
+                it.inputType = InputType.TYPE_CLASS_NUMBER
+            }
+            setOnPreferenceChangeListener { preference, newValue ->
+                viewModel.onSaveBudget(Integer.parseInt(newValue as String))
+                true
+            }
         }
 
-        return binding.root
+        findPreference<EditTextPreference>("interval_preference")?.apply {
+
+            summaryProvider = Preference.SummaryProvider<EditTextPreference> {
+                val text = it.text
+                if (TextUtils.isEmpty(text)) {
+                    "How many days your Budget lasts"
+                } else {
+                    "$text Days"
+                }
+            }
+
+            setOnBindEditTextListener {
+                it.inputType = InputType.TYPE_CLASS_NUMBER
+            }
+            setOnPreferenceChangeListener { preference, newValue ->
+                viewModel.onSaveInterval(Integer.parseInt(newValue as String))
+                true
+            }
+        }
     }
 }

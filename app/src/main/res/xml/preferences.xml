@@ -1,0 +1,39 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:key="budget_category"
+        app:title="Budget">
+        <EditTextPreference
+            app:key="budget_preference"
+            app:summary="Amount to use in Budget"
+            app:title="Budget Amount" />
+        <EditTextPreference
+            app:key="interval_preference"
+            app:summary="How many days your Budget lasts"
+            app:title="Budget Duration" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:key="notification_category"
+        app:title="Notifications">
+
+        <SwitchPreferenceCompat
+            app:key="notifications_enabled"
+            app:title="Enable message notifications" />
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        app:key="other_category"
+        app:title="Other">
+
+        <Preference
+            app:key="feedback"
+            app:summary="Report technical issues or suggest new features"
+            app:title="Send feedback" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

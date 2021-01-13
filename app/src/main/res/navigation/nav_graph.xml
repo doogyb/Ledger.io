@@ -12,8 +12,7 @@
     <fragment
         android:id="@+id/settings_fragment"
         android:name="com.example.revolutlistener.screens.settings.SettingsFragment"
-        android:label="settings_fragment"
-        tools:layout="@layout/settings_fragment" >
+        android:label="settings_fragment">
     </fragment>
     <fragment
         android:id="@+id/about_fragment"

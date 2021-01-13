@@ -24,9 +24,14 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     private var alarmMgr: AlarmManager? = null
     private lateinit var alarmIntent: PendingIntent
 
-    fun onSaveSettings(budgetAmount: Int, budgetInterval: Int) {
+
+    fun onSaveBudget(budgetAmount: Int) {
 
         ledgerRepository.setBudget(Amount(budgetAmount, 0))
+
+    }
+
+    fun onSaveInterval(intervalAmount: Int) {
 
         alarmMgr = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmIntent = Intent(context, ResetBudgetReceiver::class.java).let { intent ->
