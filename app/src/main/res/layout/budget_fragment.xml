@@ -42,7 +42,7 @@
                     android:layout_marginEnd="3dip"
                     android:layout_weight="1.0"
                     android:gravity="center"
-                    android:text="@{viewmodel.dailyRemaining}"
+                    android:text="@{viewmodel.dailyRemaining.toString()}"
                     android:textSize="40dp" />
 
                 <TextView
@@ -68,7 +68,7 @@
                     android:layout_marginStart="3dip"
                     android:layout_weight="1.0"
                     android:gravity="center"
-                    android:text="@{viewmodel.monthlyRemaining}"
+                    android:text='@{viewmodel.currentBudget.toString() + " / " + String.valueOf(viewmodel.budgetTotal)}'
                     android:textSize="40dp" />
 
                 <TextView

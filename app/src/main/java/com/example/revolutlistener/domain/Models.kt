@@ -31,14 +31,31 @@ open class Amount(euro: Int, cent: Int, id: Long=0) : AmountTable(euro, cent, id
         return Amount(euros, cents)
     }
 
+
     override fun toString(): String {
-        return "€$euro.$cent"
+        val centString = if (cent < 10) "0$cent" else cent.toString()
+        return "€$euro.$centString"
     }
 
     override fun hashCode(): Int {
         var result = euro
         result = 31 * result + cent
         return result
+    }
+
+    companion object {
+        /**
+         * Ignores negative amounts
+         */
+        fun parseString(sAmount: String): Amount {
+            // if string begins with currency symbol, ignore
+            var s = sAmount
+            if (listOf('$', '€').contains(sAmount[0])) {
+                s = s.substring(1)
+            }
+            val split = s.split(".")
+            return Amount(Integer.parseInt(split[0]), Integer.parseInt(split[1]))
+        }
     }
 
 }

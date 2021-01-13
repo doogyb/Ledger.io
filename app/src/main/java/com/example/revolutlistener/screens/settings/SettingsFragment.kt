@@ -28,11 +28,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
             summaryProvider = Preference.SummaryProvider<EditTextPreference> {
                 val text = it.text
-                if (TextUtils.isEmpty(text)) {
-                    "Set your budget amount here"
-                } else {
-                    "€$text"
-                }
+                if (TextUtils.isEmpty(text)) "Set your budget amount here" else "€$text"
             }
 
             setOnBindEditTextListener {
@@ -48,11 +44,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
             summaryProvider = Preference.SummaryProvider<EditTextPreference> {
                 val text = it.text
-                if (TextUtils.isEmpty(text)) {
-                    "How many days your Budget lasts"
-                } else {
-                    "$text Days"
-                }
+                if (TextUtils.isEmpty(text)) "How many days your Budget lasts" else "$text Days"
             }
 
             setOnBindEditTextListener {

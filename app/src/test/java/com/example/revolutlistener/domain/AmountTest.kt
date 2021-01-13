@@ -1,13 +1,17 @@
-package com.example.revolutlistener
+package com.example.revolutlistener.domain
 
-import com.example.revolutlistener.database.Amount
 import org.junit.Test
 
 import org.junit.Assert.*
 
-class MoneyTests {
+class AmountTest {
+
     @Test
-    fun addition_isCorrect() {
+    fun testEquals() {
+    }
+
+    @Test
+    fun plus() {
         // Euro test
         assertEquals(Amount(5, 0), Amount(2, 0) + Amount(3, 0))
         // Cent test
@@ -15,10 +19,10 @@ class MoneyTests {
         // Overflow test
         assertEquals(Amount(1, 0), Amount(0, 40) + Amount(0, 60))
         assertEquals(Amount(6, 10), Amount(2, 50) + Amount(3, 60))
-
     }
+
     @Test
-    fun subtraction_isCorrect() {
+    fun minus() {
         // Euro test
         assertEquals(Amount(3, 0), Amount(4, 0) - Amount(1, 0))
         // Cent test
@@ -26,15 +30,37 @@ class MoneyTests {
         // Overflow tests
         assertEquals(Amount(0, 60), Amount(1, 0) - Amount(0, 40))
         assertEquals(Amount(3, 30), Amount(5, 10) - Amount(1, 80))
-
     }
+
     @Test
-    fun division_isCorrect() {
+    fun div() {
         // Simple division
         assertEquals(Amount(5, 0), Amount(25, 0) / 5)
         // Recurring
         assertEquals(Amount(3, 33), Amount(10, 0) / 3)
         // Dividing by 31 days
         assertEquals(Amount(16, 12), Amount(500, 0) / 31)
+    }
+
+    @Test
+    fun parseString() {
+        // Test with single digits
+        assertEquals(Amount.parseString("5.0"), Amount(5, 0))
+        // Test with multiple digits
+        assertEquals(Amount.parseString("50.50"), Amount(50, 50))
+        // Test with zero leading digits for cents
+        assertEquals(Amount.parseString("5.05"), Amount(5, 5))
+        // Test ignoring currency symbol
+        assertEquals(Amount.parseString("€5.05"), Amount(5, 5))
+    }
+
+    @Test
+    fun testToString() {
+        // Test without leading zeros
+        assertEquals("€50.50", Amount(50, 50).toString())
+        // Test with leading zeros
+        assertEquals("€50.05", Amount(50, 5).toString())
+        // Test round number - double zeros
+        assertEquals("€50.00", Amount(50, 0).toString())
     }
 }
