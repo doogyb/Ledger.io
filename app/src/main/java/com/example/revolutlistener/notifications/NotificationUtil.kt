@@ -38,7 +38,7 @@ fun parseMonetaryAmount(sbn: StatusBarNotification): Amount {
     return Amount(nextInt(0, 10), nextInt(0, 100))
 }
 
-fun createUpdatedBudgetNotification(context: Context, todaysBudget: Amount) {
+fun createUpdatedBudgetNotification(context: Context, spentToday: Amount, todaysBudget: Amount) {
     postNotification(context, "Ledger.io","You have $todaysBudget left to spend today")
 }
 

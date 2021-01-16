@@ -52,6 +52,8 @@ class AmountTest {
         assertEquals(Amount.parseString("5.05"), Amount(5, 5))
         // Test ignoring currency symbol
         assertEquals(Amount.parseString("€5.05"), Amount(5, 5))
+        // Test when no cents or . is given in string
+        assertEquals(Amount.parseString("500"), Amount(500, 0))
     }
 
     @Test
@@ -62,5 +64,19 @@ class AmountTest {
         assertEquals("€50.05", Amount(50, 5).toString())
         // Test round number - double zeros
         assertEquals("€50.00", Amount(50, 0).toString())
+    }
+    @Test
+    fun sum() {
+        val amounts: List<Amount> = (1..5).map {Amount(it, it*10)}
+        assertEquals(Amount(16, 50), amounts.sumUp())
+    }
+    @Test
+    fun fromFloat() {
+        // Whole number
+        assertEquals(Amount(10, 0), Amount(10.0F))
+        // Floating point
+        assertEquals(Amount(10, 52), Amount(10.52F))
+        // Recurring
+        assertEquals(Amount(10, 52), Amount(10.52222F))
     }
 }

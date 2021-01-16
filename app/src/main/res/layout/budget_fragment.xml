@@ -68,7 +68,7 @@
                     android:layout_marginStart="3dip"
                     android:layout_weight="1.0"
                     android:gravity="center"
-                    android:text='@{viewmodel.currentBudget.toString() + " / " + String.valueOf(viewmodel.budgetTotal)}'
+                    android:text='@{viewmodel.currentBudget.toString() + " / " + viewmodel.budgetTotal.toString()}'
                     android:textSize="40dp" />
 
                 <TextView

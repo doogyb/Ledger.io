@@ -1,12 +1,15 @@
 package com.example.revolutlistener.domain
 
 import com.example.revolutlistener.database.AmountTable
+import java.lang.Math.round
+import java.util.*
 
 fun Boolean.toInt() = if (this) 1 else 0
 
 
 
-open class Amount(euro: Int, cent: Int, id: Long=0) : AmountTable(euro, cent, id) {
+open class Amount(euro: Int, cent: Int, id: Long=0, timestamp: Long = System.currentTimeMillis()):
+    AmountTable(euro, cent, id, timestamp) {
 
     override fun equals(other: Any?): Boolean = (other is Amount && euro == other.euro && cent == other.cent)
 
@@ -53,9 +56,27 @@ open class Amount(euro: Int, cent: Int, id: Long=0) : AmountTable(euro, cent, id
             if (listOf('$', '€').contains(sAmount[0])) {
                 s = s.substring(1)
             }
-            val split = s.split(".")
-            return Amount(Integer.parseInt(split[0]), Integer.parseInt(split[1]))
+            if (s.contains('.')) {
+                val split = s.split(".")
+                return Amount(Integer.parseInt(split[0]), Integer.parseInt(split[1]))
+            }
+            else {
+                return Amount(Integer.parseInt(s), 0)
+            }
         }
     }
+}
 
+fun List<Amount>.sumUp(): Amount {
+    var idem = Amount(0, 0)
+    this.forEach {
+        idem += it
+    }
+    return idem
+}
+
+fun Amount(floatAmount: Float): Amount {
+    val euro = floatAmount.toInt()
+    val cent = round(((floatAmount - euro) * 100)).toInt()
+    return Amount(euro, cent)
 }

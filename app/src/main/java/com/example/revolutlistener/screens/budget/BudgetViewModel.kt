@@ -3,6 +3,7 @@ package com.example.revolutlistener.screens.budget
 import com.example.revolutlistener.util.SharedPreferenceStringLiveData
 import android.app.Application
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.*
 import androidx.preference.PreferenceManager
 import com.example.revolutlistener.database.AppDatabase
@@ -22,12 +23,12 @@ class BudgetViewModel(
     private val sharedPreferences : SharedPreferences =
         PreferenceManager.getDefaultSharedPreferences(application.applicationContext)
 
-    val budgetPreference = SharedPreferenceStringLiveData(sharedPreferences, "budget_preference", "0")
+    private val budgetPreference = SharedPreferenceStringLiveData(sharedPreferences, "budget_preference", "0")
 
-    val budgetTotal = Transformations.map(budgetPreference) {
-
+    // Cast the budgetPreference to an Amount object EditTextPreference is stored as String)
+    val budgetTotal : LiveData<Amount> = Transformations.map(budgetPreference) {
+        Amount.parseString(it)
     }
-
 
     private val intervalPreference = SharedPreferenceStringLiveData(sharedPreferences, "interval_preference", "1")
 
@@ -40,7 +41,6 @@ class BudgetViewModel(
     val currentBudget : LiveData<Amount> = Transformations.map(budgets) {
         if (it.isNotEmpty()) it[0] else Amount(0, 0)
     }
-
 
     // Variable to track amount you can spend in a day given an interval and budget
     private val dailySpend : LiveData<Amount> = Transformations.map(intervalInt) {

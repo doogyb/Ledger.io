@@ -12,6 +12,8 @@ open class AmountTable(
     val cent: Int,
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0,
+    @ColumnInfo(name = "timestamp")
+    var timestamp: Long = System.currentTimeMillis()
 )
 
 @Entity(tableName = "budget_table")
@@ -22,6 +24,6 @@ data class Budget(
 
 @Entity(tableName = "spend_table")
 data class Spend(
-    @PrimaryKey @ColumnInfo(name="spend_key")
+    @PrimaryKey
     var id: Long? = 0L
 )
