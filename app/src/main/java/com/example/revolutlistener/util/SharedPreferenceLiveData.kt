@@ -31,3 +31,8 @@ class SharedPreferenceStringLiveData(sharedPrefs: SharedPreferences, key: String
     SharedPreferenceLiveData<String>(sharedPrefs, key, defValue) {
     override fun getValueFromPreferences(key: String, defValue: String): String = sharedPrefs.getString(key, defValue) ?: ""
 }
+
+class SharedPreferenceFloatLiveData(sharedPrefs: SharedPreferences, key: String, defValue: Float) :
+    SharedPreferenceLiveData<Float>(sharedPrefs, key, defValue) {
+    override fun getValueFromPreferences(key: String, defValue: Float): Float = sharedPrefs.getFloat(key, defValue)
+}

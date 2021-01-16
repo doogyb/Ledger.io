@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import androidx.preference.PreferenceManager
 import com.example.revolutlistener.database.AppDatabase
 import com.example.revolutlistener.database.Budget
@@ -21,6 +22,9 @@ class LedgerRepository(private val database: AppDatabase) {
     val budgets: LiveData<List<Amount>> = database.ledger.getAllBudgets()
     val spends: LiveData<List<Amount>> = database.ledger.getTodaysExpenditure()
 
+    val spentToday : LiveData<Amount> = Transformations.map(spends) {
+        it.sumUp()
+    }
 
     fun handleSpend(context: Context, spendAmount: Amount) {
         val sharedPreferences : SharedPreferences =
@@ -73,6 +77,12 @@ class LedgerRepository(private val database: AppDatabase) {
             Log.i(TAG, "handling Budget set")
             var id = database.amountDao.insert(amount)
             database.budgetDao.insert(Budget(id))
+        }
+    }
+
+    fun clearTodaysSpend() {
+        GlobalScope.launch {
+            database.ledger.clearToday()
         }
     }
 }

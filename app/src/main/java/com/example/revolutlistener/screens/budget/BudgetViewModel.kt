@@ -9,6 +9,7 @@ import androidx.preference.PreferenceManager
 import com.example.revolutlistener.database.AppDatabase
 import com.example.revolutlistener.domain.Amount
 import com.example.revolutlistener.repository.LedgerRepository
+import com.example.revolutlistener.util.SharedPreferenceFloatLiveData
 
 const val TAG = "BudgetViewModel"
 
@@ -19,6 +20,8 @@ class BudgetViewModel(
 
     private val ledgerRepository = LedgerRepository(AppDatabase.getInstance(application))
     private val budgets = ledgerRepository.budgets
+    private val spentToday : LiveData<Amount> = ledgerRepository.spentToday
+
 
     private val sharedPreferences : SharedPreferences =
         PreferenceManager.getDefaultSharedPreferences(application.applicationContext)
@@ -29,6 +32,7 @@ class BudgetViewModel(
     val budgetTotal : LiveData<Amount> = Transformations.map(budgetPreference) {
         Amount.parseString(it)
     }
+
 
     private val intervalPreference = SharedPreferenceStringLiveData(sharedPreferences, "interval_preference", "1")
 
@@ -42,14 +46,15 @@ class BudgetViewModel(
         if (it.isNotEmpty()) it[0] else Amount(0, 0)
     }
 
-    // Variable to track amount you can spend in a day given an interval and budget
-    private val dailySpend : LiveData<Amount> = Transformations.map(intervalInt) {
-        currentBudget.value?.div(it)
-    }
+    // Set budget divided by preferred interval, computed and stored in SharedPreferences
+    private val dailyLimitFloat = SharedPreferenceFloatLiveData(sharedPreferences, "daily_limit", 0.0F)
 
+    val dailyLimitAmount = Transformations.map(dailyLimitFloat) {
+        Amount(it)
+    }
     // TODO get current number of days in Month
     // Amount you can spend in a day given Budget and Interval/Budget Period
-    val dailyRemaining : LiveData<Amount> = Transformations.map(currentBudget) {
-        it.div(intervalInt.value ?: 1)
+    val dailyRemaining : LiveData<Amount> = Transformations.map(spentToday) {
+        dailyLimitAmount.value?.minus(it)
     }
 }

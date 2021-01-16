@@ -31,6 +31,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
 
     fun onSaveBudget(budget: Int) {
         ledger.setBudget(Amount(budget, 0))
+        ledger.clearTodaysSpend()
         saveDailyLimit(budget, sharedPreferences.getString("interval_preference", "1") ?: "1")
     }
 
