@@ -23,9 +23,13 @@ class LedgerRepository(private val database: AppDatabase) {
 
 
     fun handleSpend(context: Context, spendAmount: Amount) {
-        Log.i(TAG, "budgets: $budgets")
-        val topBudget = budgets.value?.get(0)
-        Log.i(TAG, "topBudget: $topBudget")
+        val sharedPreferences : SharedPreferences =
+            PreferenceManager.getDefaultSharedPreferences(context)
+
+        val dailyLimit = Amount(sharedPreferences.getFloat("daily_limit", 0.0F))
+
+        Log.d(TAG, "dailyLimit: $dailyLimit")
+
         GlobalScope.launch {
 
             Log.i(TAG, "handling Spend...")
@@ -49,11 +53,8 @@ class LedgerRepository(private val database: AppDatabase) {
             val todaysSpends: List<Amount> = database.ledger.getTodaysExpenditureSync()
             val spentToday = todaysSpends.sumUp()
 
-            val sharedPreferences : SharedPreferences =
-                PreferenceManager.getDefaultSharedPreferences(context)
 
-            val dailyLimit = Amount(sharedPreferences.getFloat("daily_limit", 0.0F))
-            val leftToSpend = currentBudget - spentToday
+            val leftToSpend = dailyLimit - spentToday
 
 
             createUpdatedBudgetNotification(context, spentToday, leftToSpend)

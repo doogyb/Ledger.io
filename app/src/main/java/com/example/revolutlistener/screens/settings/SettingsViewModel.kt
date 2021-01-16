@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.preference.PreferenceManager
 import com.example.revolutlistener.ResetBudgetReceiver
@@ -30,19 +31,20 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
 
     fun onSaveBudget(budget: Int) {
         ledger.setBudget(Amount(budget, 0))
-        saveDailyLimit(budget, sharedPreferences.getString("interval", "1") ?: "1")
+        saveDailyLimit(budget, sharedPreferences.getString("interval_preference", "1") ?: "1")
     }
 
     fun onSaveInterval(interval: Int) {
         // Set alarm to reset the Budget every interval days
         setAlarm(interval)
-        saveDailyLimit(sharedPreferences.getString("budget", "0") ?: "0", interval)
+        saveDailyLimit(sharedPreferences.getString("budget_preference", "0") ?: "0", interval)
     }
 
     // Function gets called when Budget and Interval are changed, i.e.
     // When onSaveBudget and onSaveInterval are called.
     private fun saveDailyLimit(budget: Int, interval: Int) {
         editor.putFloat("daily_limit", budget.toFloat() / interval)
+        editor.commit()
     }
     private fun saveDailyLimit(budget: String, interval: Int) {
         saveDailyLimit(Integer.parseInt(budget), interval)

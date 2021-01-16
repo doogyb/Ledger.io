@@ -1,20 +1,11 @@
 package com.example.revolutlistener.notifications
 
-import android.app.Notification
 import android.content.Context
-import android.os.Parcel
-import android.os.Parcelable
 import android.service.notification.StatusBarNotification
-import android.text.TextUtils
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.revolutlistener.R
-import com.example.revolutlistener.database.Budget
 import com.example.revolutlistener.domain.Amount
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
 import kotlin.random.Random.Default.nextInt
 
 private const val PAID = "Paid"
@@ -38,8 +29,9 @@ fun parseMonetaryAmount(sbn: StatusBarNotification): Amount {
     return Amount(nextInt(0, 10), nextInt(0, 100))
 }
 
-fun createUpdatedBudgetNotification(context: Context, spentToday: Amount, todaysBudget: Amount) {
-    postNotification(context, "Ledger.io","You have $todaysBudget left to spend today")
+fun createUpdatedBudgetNotification(context: Context, spentToday: Amount, leftToSpend: Amount) {
+    val text = "You've spent $spentToday in total today.\nYou have $leftToSpend left to spend today"
+    postNotification(context, "Ledger.io",text)
 }
 
 private fun postNotification(context: Context, title: String, text: String) {
