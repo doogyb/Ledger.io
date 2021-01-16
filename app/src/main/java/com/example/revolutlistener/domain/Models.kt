@@ -1,6 +1,7 @@
 package com.example.revolutlistener.domain
 
 import com.example.revolutlistener.database.AmountTable
+import java.lang.Math.abs
 import java.lang.Math.round
 import java.util.*
 
@@ -13,27 +14,15 @@ open class Amount(euro: Int, cent: Int, id: Long=0, timestamp: Long = System.cur
 
     override fun equals(other: Any?): Boolean = (other is Amount && euro == other.euro && cent == other.cent)
 
-    operator fun plus(other: Amount): Amount {
-        val totalCents = cent + other.cent
-        return Amount(euro + other.euro + totalCents / 100, totalCents % 100)
+    operator fun plus(other: Amount) = Amount(this.toFloat() + other.toFloat())
+
+    operator fun minus(other: Amount) = Amount(this.toFloat() - other.toFloat())
+
+    operator fun div(denominator: Int): Amount = Amount(this.toFloat() / denominator)
+
+    private fun toFloat(): Float {
+        return euro.toFloat() + cent.toFloat() / 100
     }
-
-    operator fun minus(other: Amount): Amount {
-
-        val totalCents = cent - other.cent
-        val resultingEuros = euro - (other.euro + (totalCents < 0).toInt())
-        val resultingCents = if (totalCents < 0) 100 + totalCents else totalCents
-        return Amount(resultingEuros, resultingCents)
-    }
-
-    operator fun div(days: Int): Amount {
-        val total = euro + cent / 100
-        val divided: Double = total.toDouble() / days.toDouble()
-        val euros = divided.toInt()
-        val cents = ((divided - euros) * 100).toInt()
-        return Amount(euros, cents)
-    }
-
 
     override fun toString(): String {
         val centString = if (cent < 10) "0$cent" else cent.toString()
@@ -45,6 +34,7 @@ open class Amount(euro: Int, cent: Int, id: Long=0, timestamp: Long = System.cur
         result = 31 * result + cent
         return result
     }
+
 
     companion object {
         /**
@@ -78,5 +68,5 @@ fun List<Amount>.sumUp(): Amount {
 fun Amount(floatAmount: Float): Amount {
     val euro = floatAmount.toInt()
     val cent = round(((floatAmount - euro) * 100)).toInt()
-    return Amount(euro, cent)
+    return Amount(euro, abs(cent))
 }

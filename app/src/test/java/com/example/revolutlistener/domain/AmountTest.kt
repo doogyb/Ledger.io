@@ -30,6 +30,8 @@ class AmountTest {
         // Overflow tests
         assertEquals(Amount(0, 60), Amount(1, 0) - Amount(0, 40))
         assertEquals(Amount(3, 30), Amount(5, 10) - Amount(1, 80))
+        // Negatives
+        assertEquals(Amount(-1, 40), Amount(2, 10) - Amount(3, 50))
     }
 
     @Test
@@ -38,8 +40,8 @@ class AmountTest {
         assertEquals(Amount(5, 0), Amount(25, 0) / 5)
         // Recurring
         assertEquals(Amount(3, 33), Amount(10, 0) / 3)
-        // Dividing by 31 days
-        assertEquals(Amount(16, 12), Amount(500, 0) / 31)
+        // Dividing by 31 days - rounding? Floats round up it seems
+        assertEquals(Amount(16, 13), Amount(500, 0) / 31)
     }
 
     @Test
