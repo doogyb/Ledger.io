@@ -34,52 +34,59 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         Intent(this, NotificationService::class.java).also { intent ->
             startService(intent)
         }
+
         createNotificationChannel()
-        val requestPermissionLauncher =
-            registerForActivityResult(
-                ActivityResultContracts.RequestPermission()
-            ) { isGranted: Boolean ->
-                if (isGranted) {
-                    // Permission is granted. Continue the action or workflow in your
-                    // app.
-                    Log.d(TAG, "Permission allowed")
 
-                } else {
-                    // Explain to the user that the feature is unavailable because the
-                    // features requires a permission that the user has denied. At the
-                    // same time, respect the user's decision. Don't link to system
-                    // settings in an effort to convince the user to change their
-                    // decision.
-                    Log.d(TAG, "Permission not allowed")
-                }
-            }
-
-        requestPermissionLauncher.launch(
-            Manifest.permission.ACCESS_NOTIFICATION_POLICY)
+        // TODO this doesn't work...
+//        val requestPermissionLauncher =
+//            registerForActivityResult(
+//                ActivityResultContracts.RequestPermission()
+//            ) { isGranted: Boolean ->
+//                if (isGranted) {
+//                    // Permission is granted. Continue the action or workflow in your
+//                    // app.
+//                    Log.d(TAG, "Permission allowed")
+//
+//                } else {
+//                    // Explain to the user that the feature is unavailable because the
+//                    // features requires a permission that the user has denied. At the
+//                    // same time, respect the user's decision. Don't link to system
+//                    // settings in an effort to convince the user to change their
+//                    // decision.
+//                    Log.d(TAG, "Permission not allowed")
+//                }
+//            }
+//
+//        requestPermissionLauncher.launch(
+//            Manifest.permission.ACCESS_NOTIFICATION_POLICY)
 
         val navController = findNavController(R.id.nav_host_fragment)
 
         binding.toolbar.setNavigationOnClickListener {
             NavigationUI.navigateUp(navController, binding.drawerLayout)
-
+            binding.toolbar.setNavigationIcon(R.drawable.burger)
+            binding.toolbar.menu.findItem(R.id.settings).isVisible = true
         }
 
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
-                R.id.about_fragment -> {
-                    navController.navigate(R.id.about_fragment)
+                R.id.settings -> {
+                    navController.navigate(R.id.settings_fragment)
+                    menuItem.isVisible = false
                     true
                 }
                 else -> false
             }
         }
+
+
 
         NavigationUI.setupWithNavController(binding.navView, navController)
         binding.bottomNav.setupWithNavController(navController)
@@ -88,11 +95,14 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.about_fragment, R.id.settings_fragment -> {
                     binding.bottomNav.isVisible = false
+                    binding.toolbar.setNavigationIcon(R.drawable.back)
+                    binding.toolbar.menu.findItem(R.id.settings).isVisible = false
                 }
                 else -> binding.bottomNav.isVisible = true
             }
         }
     }
+
 
 
     override fun onSupportNavigateUp(): Boolean {
