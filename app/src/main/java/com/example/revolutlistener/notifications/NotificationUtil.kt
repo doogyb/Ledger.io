@@ -52,7 +52,12 @@ fun parseMonetaryAmount(notificationText: String): Amount {
 }
 
 fun createUpdatedBudgetNotification(context: Context, spentToday: Amount, leftToSpend: Amount) {
-    val text = "You've spent $spentToday in total today.\nYou have $leftToSpend left to spend today"
+
+
+    var text = "You've spent $spentToday in total today.\n"
+    if (leftToSpend.euro > 0) text += "You have $leftToSpend left to spend today."
+    else text += "You have spent ${Amount(leftToSpend.euro * -1, leftToSpend.cent)} " +
+                 "over your budget.}"
     postNotification(context, "Ledger.io", text)
 }
 

@@ -35,4 +35,19 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="title_activity_settings">SettingsActivity</string>
+    <string name="about_content">
+        Ledger.io is intended to be a simple app which listens to the notifications made by apps
+        such as Revolut and Google Pay when they are used to purchase products. The aim of this app
+        is to aggregate the output of these apps to track your spending and notify you of how much
+        you spend in a given day and how much you have left to spend in a given budget period.
+        \n\n
+        Please make sure you have the approriate listening permissions turned on, or the app will
+        not function correctly and it will not be able to update your budgets accordingly.
+        \n\n
+        Don\'t hesitate to drop me a mail at
+        <a href="mailto:samueldoogan@gmail.com">samueldoogan@gmail.com</a>, to make any suggestions
+        or report any bugs.
+
+
+    </string>
 </resources>

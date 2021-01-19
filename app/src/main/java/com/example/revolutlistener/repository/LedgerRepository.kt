@@ -60,8 +60,9 @@ class LedgerRepository(private val database: AppDatabase) {
 
             val leftToSpend = dailyLimit - spentToday
 
-
-            createUpdatedBudgetNotification(context, spentToday, leftToSpend)
+            if (sharedPreferences.getBoolean("notifications_enabled", true)) {
+                createUpdatedBudgetNotification(context, spentToday, leftToSpend)
+            }
 
         }
     }
