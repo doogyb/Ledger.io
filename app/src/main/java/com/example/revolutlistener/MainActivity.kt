@@ -94,16 +94,17 @@ class MainActivity : AppCompatActivity() {
 
 
         NavigationUI.setupWithNavController(binding.navView, navController)
-        binding.bottomNav.setupWithNavController(navController)
-
+//        binding.bottomNav.setupWithNavController(navController)
+//
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.about_fragment, R.id.settings_fragment -> {
-                    binding.bottomNav.isVisible = false
+//                    binding.bottomNav.isVisible = false
                     binding.toolbar.setNavigationIcon(R.drawable.back)
                     binding.toolbar.menu.findItem(R.id.settings).isVisible = false
                 }
-                else -> binding.bottomNav.isVisible = true
+                else -> false
+//                else -> binding.bottomNav.isVisible = true
             }
         }
     }
