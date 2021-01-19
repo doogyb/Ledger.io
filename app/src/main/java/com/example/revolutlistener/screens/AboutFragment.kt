@@ -10,6 +10,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.revolutlistener.R
 
+/**
+ * Simple Fragment for displaying about section.
+ */
 class About : Fragment() {
 
     override fun onCreateView(
@@ -20,7 +23,7 @@ class About : Fragment() {
         val view = inflater.inflate(R.layout.about_fragment, container, false)
         val aboutView = view.findViewById(R.id.about_view) as TextView
 
-        aboutView.movementMethod = LinkMovementMethod.getInstance();
+        aboutView.movementMethod = LinkMovementMethod.getInstance()
 
         return view
     }

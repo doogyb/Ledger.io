@@ -32,8 +32,6 @@ class LedgerRepository(private val database: AppDatabase) {
 
         val dailyLimit = Amount(sharedPreferences.getFloat("daily_limit", 0.0F))
 
-        Log.d(TAG, "dailyLimit: $dailyLimit")
-
         GlobalScope.launch {
 
             Log.i(TAG, "handling Spend...")
@@ -72,12 +70,21 @@ class LedgerRepository(private val database: AppDatabase) {
     then sent the notification update using createUpdatedBudgetNotification
     */
 
-    fun setBudget(amount: Amount) {
+    fun setBudget(amount: Amount, context: Context) {
         GlobalScope.launch {
 
-            Log.i(TAG, "handling Budget set")
-            var id = database.amountDao.insert(amount)
+            // Insert into DB
+            val id = database.amountDao.insert(amount)
             database.budgetDao.insert(Budget(id))
+
+            // Get instance of sharedPreferences and set the Budget
+            // Needed for if/when the budget is reset with alarmManager
+            val sharedPreferences : SharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(context)
+            val editor = sharedPreferences.edit()
+            editor.putFloat("budget", amount.toFloat())
+            editor.apply()
+
         }
     }
 

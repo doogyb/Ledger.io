@@ -33,9 +33,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 if (TextUtils.isEmpty(text)) "Set your budget amount here" else "€$text"
             }
 
+            // Only allow numbers here
             setOnBindEditTextListener {
                 it.inputType = InputType.TYPE_CLASS_NUMBER
             }
+            // Save budget to DB
             setOnPreferenceChangeListener { preference, newValue ->
                 viewModel.onSaveBudget(Integer.parseInt(newValue as String))
                 true
@@ -48,16 +50,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 val text = it.text
                 if (TextUtils.isEmpty(text)) "How many days your Budget lasts" else "$text Days"
             }
-
+            // Only allow numbers here
             setOnBindEditTextListener {
                 it.inputType = InputType.TYPE_CLASS_NUMBER
             }
+            // Save interval to SharedPreferences
             setOnPreferenceChangeListener { preference, newValue ->
                 viewModel.onSaveInterval(Integer.parseInt(newValue as String))
                 true
             }
         }
 
+        // Send email if user wants to send feedback
         findPreference<Preference>("feedback")?.apply {
             setOnPreferenceClickListener {
                 val mailto = "mailto:Ledger.io@gmail.com?subject=" + Uri.encode("Ledger.io feedback")

@@ -2,13 +2,11 @@ package com.example.revolutlistener.screens.budget
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import com.example.revolutlistener.database.AppDatabase
 import com.example.revolutlistener.databinding.BudgetFragmentBinding
 import com.example.revolutlistener.notifications.isNotificationServiceEnabled
 
@@ -23,7 +21,6 @@ class BudgetFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate view and obtain an instance of the binding class
-
         binding = BudgetFragmentBinding.inflate(inflater)
 
         val application = requireNotNull(this.activity).application
@@ -33,6 +30,7 @@ class BudgetFragment : Fragment() {
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
 
+        // Send user to listener settings, only if not already allowed
         binding.goToListenerSettings.setOnClickListener {
             Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS").also {
                 it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -45,6 +43,8 @@ class BudgetFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        // Check listener settings onResume and set visibility accordingly
+        // TODO LiveData for this param?
         binding.listenerNotSetView.visibility =
             if (context?.let { isNotificationServiceEnabled(it) } == true) View.GONE
             else View.VISIBLE

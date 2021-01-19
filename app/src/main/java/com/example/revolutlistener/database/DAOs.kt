@@ -21,12 +21,12 @@ interface LedgerDao {
     @Query("SELECT amount_table.* FROM amount_table INNER JOIN budget_table ON budget_table.id == amount_table.id ORDER BY amount_table.id DESC LIMIT 1")
     fun getCurrentBudget(): Amount
 
+    // Gets amounts from beginning of current day -> date('now') auto sets to today:00:00
     @Query("SELECT amount_table.* FROM amount_table INNER JOIN spend_table ON spend_table.id == amount_table.id WHERE datetime(timestamp / 1000, 'unixepoch') > date('now')")
     fun getTodaysExpenditure(): LiveData<List<Amount>>
-
+    // Sync version of above
     @Query("SELECT amount_table.* FROM amount_table INNER JOIN spend_table ON spend_table.id == amount_table.id WHERE datetime(timestamp / 1000, 'unixepoch') > date('now')")
     fun getTodaysExpenditureSync(): List<Amount>
-
     @Query(
         "DELETE FROM spend_table\n" +
               "WHERE spend_table.id IN (\n" +

@@ -1,32 +1,18 @@
 package com.example.revolutlistener
 
-import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
-import android.text.TextUtils
-import android.util.Log
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationManagerCompat.getEnabledListenerPackages
-import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
 import com.example.revolutlistener.databinding.ActivityMainBinding
 import com.example.revolutlistener.notifications.NotificationService
-import com.example.revolutlistener.notifications.isNotificationServiceEnabled
-import kotlinx.android.synthetic.main.activity_main.*
 
 
-private const val ENABLED_NOTIFICATION_LISTENERS = "enabled_notification_listeners"
 private const val TAG = "mainActivity"
 private const val CHANNEL_ID = "52"
 
@@ -40,46 +26,21 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Start listening to notifications.
         Intent(this, NotificationService::class.java).also { intent ->
             startService(intent)
         }
-
         createNotificationChannel()
-        Log.d(TAG, "notification service enabled? : ${isNotificationServiceEnabled(this)}")
-
-        Log.d(TAG,"recommended way: {${getEnabledListenerPackages(this)}}")
-
-        // TODO this doesn't work...
-//        val requestPermissionLauncher =
-//            registerForActivityResult(
-//                ActivityResultContracts.RequestPermission()
-//            ) { isGranted: Boolean ->
-//                if (isGranted) {
-//                    // Permission is granted. Continue the action or workflow in your
-//                    // app.
-//                    Log.d(TAG, "Permission allowed")
-//
-//                } else {
-//                    // Explain to the user that the feature is unavailable because the
-//                    // features requires a permission that the user has denied. At the
-//                    // same time, respect the user's decision. Don't link to system
-//                    // settings in an effort to convince the user to change their
-//                    // decision.
-//                    Log.d(TAG, "Permission not allowed")
-//                }
-//            }
-//
-//        requestPermissionLauncher.launch(
-//            Manifest.permission.ACCESS_NOTIFICATION_POLICY)
 
         val navController = findNavController(R.id.nav_host_fragment)
 
+        // Switch from burger to back arrow
         binding.toolbar.setNavigationOnClickListener {
             NavigationUI.navigateUp(navController, binding.drawerLayout)
             binding.toolbar.setNavigationIcon(R.drawable.burger)
             binding.toolbar.menu.findItem(R.id.settings).isVisible = true
         }
-
+        // Navigation on topBar
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.settings -> {
@@ -96,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(binding.navView, navController)
 //        binding.bottomNav.setupWithNavController(navController)
 //
+        // Hide settings icon when in settings/about, change burger to back icon
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
                 R.id.about_fragment, R.id.settings_fragment -> {
@@ -110,7 +72,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
+    // Open drawer when clicking burger
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.nav_host_fragment)
         return NavigationUI.navigateUp(navController, binding.drawerLayout)

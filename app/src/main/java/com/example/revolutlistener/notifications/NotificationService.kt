@@ -14,10 +14,10 @@ class NotificationService : NotificationListenerService() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
-        Log.v(TAG, "Listener service started successfully")
+        // LedgerRepository instance needed to update database when spend has occured
         ledgerRepository = LedgerRepository(AppDatabase.getInstance(this))
-
         return super.onStartCommand(intent, flags, startId)
+
     }
 
     override fun onListenerConnected() {
@@ -27,7 +27,7 @@ class NotificationService : NotificationListenerService() {
     override fun onNotificationPosted(sbn: StatusBarNotification) {
 
         if (isMoneySpentNotification(sbn)) {
-            ledgerRepository.handleSpend(this, parseMonetaryAmount(sbn));
+            ledgerRepository.handleSpend(this, parseMonetaryAmount(sbn))
         }
     }
 }

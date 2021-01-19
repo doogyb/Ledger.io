@@ -29,12 +29,15 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     private lateinit var alarmIntent: PendingIntent
 
 
+    // Performs inserts on the budget and amount tables, also sets the daily limit as this
+    // needs to be recomputed on the new budget
     fun onSaveBudget(budget: Int) {
-        ledger.setBudget(Amount(budget, 0))
+        ledger.setBudget(Amount(budget, 0), context)
         ledger.clearTodaysSpend()
         saveDailyLimit(budget, sharedPreferences.getString("interval_preference", "1") ?: "1")
     }
-
+    // Saves the interval to SharedPreference, also sets the daily limit as this needs to be
+    // recomputed using the new interval
     fun onSaveInterval(interval: Int) {
         // Set alarm to reset the Budget every interval days
         setAlarm(interval)
@@ -54,6 +57,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
         saveDailyLimit(budget, Integer.parseInt(interval))
     }
 
+    // Sets an Alarm to reset the budget every interval days.
     private fun setAlarm(intervalAmount: Int) {
         alarmMgr = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmIntent = Intent(context, ResetBudgetReceiver::class.java).let { intent ->

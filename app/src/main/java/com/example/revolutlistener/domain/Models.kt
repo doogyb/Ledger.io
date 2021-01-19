@@ -4,10 +4,15 @@ import com.example.revolutlistener.database.AmountTable
 import java.lang.Math.abs
 import java.lang.Math.round
 import java.util.*
+import kotlin.math.roundToInt
 
 fun Boolean.toInt() = if (this) 1 else 0
 
-
+/**
+ * Mostly self explanatory. Amount class mostly for budget and daily limit calculations. Useful
+ * string methods in here too. I used the toFloat function for readability and ease of use. Not
+ * very efficient but these methods are called very infrequently - every time a spend occurs.
+ */
 
 open class Amount(euro: Int, cent: Int, id: Long=0, timestamp: Long = System.currentTimeMillis()):
     AmountTable(euro, cent, id, timestamp) {
@@ -20,7 +25,7 @@ open class Amount(euro: Int, cent: Int, id: Long=0, timestamp: Long = System.cur
 
     operator fun div(denominator: Int): Amount = Amount(this.toFloat() / denominator)
 
-    private fun toFloat(): Float {
+    fun toFloat(): Float {
         return euro.toFloat() + cent.toFloat() / 100
     }
 
@@ -57,6 +62,7 @@ open class Amount(euro: Int, cent: Int, id: Long=0, timestamp: Long = System.cur
     }
 }
 
+// Sums a list of Amounts
 fun List<Amount>.sumUp(): Amount {
     var idem = Amount(0, 0)
     this.forEach {
@@ -65,8 +71,9 @@ fun List<Amount>.sumUp(): Amount {
     return idem
 }
 
+// Casts a float to Amount
 fun Amount(floatAmount: Float): Amount {
     val euro = floatAmount.toInt()
-    val cent = round(((floatAmount - euro) * 100)).toInt()
+    val cent = ((floatAmount - euro) * 100).roundToInt()
     return Amount(euro, abs(cent))
 }

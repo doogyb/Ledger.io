@@ -3,6 +3,9 @@ package com.example.revolutlistener.util
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 
+/**
+ * Helper class to observe changes on SharedPreference values
+ */
 abstract class SharedPreferenceLiveData<T>(val sharedPrefs: SharedPreferences,
                                            val key: String,
                                            private val defValue: T) : LiveData<T>() {

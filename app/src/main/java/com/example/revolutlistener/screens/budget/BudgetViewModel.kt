@@ -54,7 +54,6 @@ class BudgetViewModel(
     val dailyLimitAmount = Transformations.map(dailyLimitFloat) {
         Amount(it)
     }
-    // TODO get current number of days in Month
     // Amount you can spend in a day given Budget and Interval/Budget Period
     val dailyRemaining : LiveData<Amount> = Transformations.map(spentToday) {
         dailyLimitAmount.value?.minus(it)
