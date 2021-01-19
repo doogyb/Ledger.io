@@ -4,14 +4,23 @@ import android.content.Context
 import android.service.notification.StatusBarNotification
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.revolutlistener.R
 import com.example.revolutlistener.domain.Amount
 import kotlin.random.Random.Default.nextInt
 
 private const val PAID = "Paid"
 private const val CHANNEL_ID = "52"
+private const val packageName = "com.example.revolutlistener"
 
 val amountRegex = "[Pp]aid [€$]\\d+(.\\d{2})?".toRegex()
+
+fun isNotificationServiceEnabled(context: Context): Boolean =
+    NotificationManagerCompat.getEnabledListenerPackages(
+        context
+    ).contains(packageName)
+
 
 fun isMoneySpentNotification(sbn: StatusBarNotification): Boolean {
 
@@ -30,6 +39,7 @@ fun isMoneySpentNotification(notificationText: String) = amountRegex.find(notifi
 fun parseMonetaryAmount(sbn: StatusBarNotification): Amount {
     return parseMonetaryAmount(sbn.notification.extras["android.text"].toString())
 }
+
 fun parseMonetaryAmount(notificationText: String): Amount {
 
     // Notification is in the form '/emoji paid €xx.yy <- need to check this
@@ -43,7 +53,7 @@ fun parseMonetaryAmount(notificationText: String): Amount {
 
 fun createUpdatedBudgetNotification(context: Context, spentToday: Amount, leftToSpend: Amount) {
     val text = "You've spent $spentToday in total today.\nYou have $leftToSpend left to spend today"
-    postNotification(context, "Ledger.io",text)
+    postNotification(context, "Ledger.io", text)
 }
 
 private fun postNotification(context: Context, title: String, text: String) {

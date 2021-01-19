@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="viewmodel"
             type="com.example.revolutlistener.screens.budget.BudgetViewModel" />
@@ -12,7 +12,40 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:id="@+id/listener_not_set_view"
+            android:layout_width="match_parent"
+            android:gravity="center"
+
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            app:layout_constraintBottom_toTopOf="@id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:layout_width="@dimen/setting_warning_width"
+                android:layout_marginBottom="5dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:justificationMode="inter_word"
+                android:text="In order for Ledger.io to work, you must set set the appropriate listening permissions. Otherwise, it cannot update your budget.">
+
+            </TextView>
+
+            <Button
+                android:id="@+id/go_to_listener_settings"
+                android:layout_width="@dimen/setting_warning_width"
+                android:layout_height="wrap_content"
+                android:text="Go To Settings" />
+
+
+        </LinearLayout>
 
 
         <LinearLayout
@@ -81,7 +114,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

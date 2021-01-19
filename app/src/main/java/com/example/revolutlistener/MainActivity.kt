@@ -14,6 +14,7 @@ import android.text.TextUtils
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationManagerCompat.getEnabledListenerPackages
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
@@ -21,6 +22,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.revolutlistener.databinding.ActivityMainBinding
 import com.example.revolutlistener.notifications.NotificationService
+import com.example.revolutlistener.notifications.isNotificationServiceEnabled
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -43,6 +45,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         createNotificationChannel()
+        Log.d(TAG, "notification service enabled? : ${isNotificationServiceEnabled(this)}")
+
+        Log.d(TAG,"recommended way: {${getEnabledListenerPackages(this)}}")
 
         // TODO this doesn't work...
 //        val requestPermissionLauncher =
@@ -126,25 +131,4 @@ class MainActivity : AppCompatActivity() {
             notificationManager.createNotificationChannel(channel)
         }
     }
-
-    private fun isNotificationServiceEnabled(): Boolean {
-        val pkgName = packageName
-        val flat = Settings.Secure.getString(
-            contentResolver,
-            ENABLED_NOTIFICATION_LISTENERS
-        )
-        if (!TextUtils.isEmpty(flat)) {
-            val names = flat.split(":".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
-            for (i in names.indices) {
-                val cn = ComponentName.unflattenFromString(names[i])
-                if (cn != null) {
-                    if (TextUtils.equals(pkgName, cn.packageName)) {
-                        return true
-                    }
-                }
-            }
-        }
-        return false
-    }
-
 }

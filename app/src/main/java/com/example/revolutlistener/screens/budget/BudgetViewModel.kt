@@ -10,6 +10,8 @@ import com.example.revolutlistener.database.AppDatabase
 import com.example.revolutlistener.domain.Amount
 import com.example.revolutlistener.repository.LedgerRepository
 import com.example.revolutlistener.util.SharedPreferenceFloatLiveData
+import com.example.revolutlistener.notifications.isNotificationServiceEnabled
+
 
 const val TAG = "BudgetViewModel"
 
