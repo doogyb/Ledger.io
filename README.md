@@ -11,19 +11,18 @@ and how much you have left to spend in a given budget period.
 
 ### Todo
 
-- [ ] Implement Settings
-	- [ ] Currency setting
-	- [ ] Daily limits
-	- [x] Monthly Budgets
+- [ ] Calendar selection for interval preference
 - [ ] Visual Representation of Budget remaining (simple Progressbar for now)
 - [ ] Budget and Spending breakdown
 	- [ ] Graph showing spending / time
 	- [ ] Types of spending (if possible?)
 
-
 ### In Progress
+- [ ] Implement Settings
+	- [ ] Currency setting
+	- [X] Daily limits
+	- [x] Monthly Budgets
 
-- [ ] Parse Notification for spend amount
 
 
 ### Done ✓
@@ -37,4 +36,6 @@ and how much you have left to spend in a given budget period.
 - [x] ViewModel update on Notification Ping, update on `onResume()`
 - [x] Remove redundant Spend class - this can be computed using historical budget info
 - [x] Notify user of how much is left to spend in the day when money has been spent
-- [x] Implement AlarmManger to reset budget after given period 
+- [x] Implement AlarmManger to reset budget after given period
+- [X] Parse Notification for spend amount
+
