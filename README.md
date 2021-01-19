@@ -5,6 +5,8 @@ Ledger.io is intended to be a simple app which listens to the notifications made
 aggregate the output of these apps to track your spending and notify you of how much you spend in a given day
 and how much you have left to spend in a given budget period.
 
+[Basic Ledger.io Demo](media/demo_v1.0.0.gif)
+
 ## Built With
 
 * [Android Jetpack]([https://developer.android.com/jetpack](https://developer.android.com/jetpack)) - Android Library Suite.
