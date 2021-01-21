@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment)
 
+
         // Switch from burger to back arrow
         binding.toolbar.setNavigationOnClickListener {
             NavigationUI.navigateUp(navController, binding.drawerLayout)

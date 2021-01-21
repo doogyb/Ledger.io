@@ -6,7 +6,6 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:openDrawer="end"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,26 +14,31 @@
         android:orientation="vertical">
 
         <com.google.android.material.appbar.MaterialToolbar
+
+            app:titleMarginStart="30dp"
+            android:paddingHorizontal="10dp"
             android:id="@+id/toolbar"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:menu="@menu/top_app_bar"
-            app:navigationIcon="@drawable/menu"
-            app:title="@string/page_title" />
+            app:navigationIcon="@drawable/burger"
+            app:title=" Ledger.io"
+            />
 
         <fragment
             android:id="@+id/nav_host_fragment"
+            tools:layout="@layout/budget_fragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:defaultNavHost="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:navGraph="@navigation/nav_graph" />
+            app:navGraph="@navigation/nav_graph"
+            />
 
 <!--        <com.google.android.material.bottomnavigation.BottomNavigationView-->
 <!--            android:id="@+id/bottom_nav"-->

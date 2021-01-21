@@ -7,17 +7,18 @@
     <fragment
         android:id="@+id/budget_fragment"
         android:name="com.example.revolutlistener.screens.budget.BudgetFragment"
-        android:label="RemainingMoney" >
-    </fragment>
+        android:label="RemainingMoney"
+        tools:layout="@layout/budget_fragment" />
+
     <fragment
         android:id="@+id/settings_fragment"
         android:name="com.example.revolutlistener.screens.settings.SettingsFragment"
-        android:label="settings_fragment">
-    </fragment>
+        android:label="settings_fragment" />
     <fragment
         android:id="@+id/about_fragment"
         android:name="com.example.revolutlistener.screens.About"
-        android:label="About" />
+        android:label="About"
+        tools:layout="@layout/about_fragment" />
     <fragment
         android:id="@+id/spending_fragment"
         android:name="com.example.revolutlistener.screens.spending.SpendingFragment"
