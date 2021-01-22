@@ -47,6 +47,10 @@ class BudgetViewModel(
     val currentBudget : LiveData<Amount> = Transformations.map(budgets) {
         if (it.isNotEmpty()) it[0] else Amount(0, 0)
     }
+    // Remaining budget as ratio
+    val remainingBudgetRatio : LiveData<Float> = Transformations.map(currentBudget) {
+        it.toInt().toFloat() / (budgetTotal.value?.toInt() ?: 1)
+    }
 
     // Set budget divided by preferred interval, computed and stored in SharedPreferences
     private val dailyLimitFloat = SharedPreferenceFloatLiveData(sharedPreferences, "daily_limit", 0.0F)

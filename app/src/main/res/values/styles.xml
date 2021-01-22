@@ -12,11 +12,8 @@
 
     <style name="Widget.App.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
 
-
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Toolbar</item>
         <item name="titleTextAppearance">@style/TitleAppearance</item>
-        <item name="paddingStart">130dp</item>
-
 
     </style>
 
@@ -37,7 +34,26 @@
         <item name="fontFamily">@font/satisfy</item>
         <item name="android:fontFamily">@font/satisfy</item>
         <item name="android:textSize">30sp</item>
-        <item name="android:paddingHorizontal">50dp</item>
+
+    </style>
+
+    <style name="Widget">
+    </style>
+    <style name="Widget.ProgressBar">
+
+        <item name="android:progressBackgroundTint">@color/darkGrey</item>
+        <item name="android:progressTint">@color/accentColor</item>
+
+
+    </style>
+
+    <style name="Widget.ProgressBar.Vertical">
+
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/progress_bar_vertical</item>
+        <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
+        <item name="android:minWidth">1dip</item>
+        <item name="android:maxWidth">12dip</item>
     </style>
 
 </resources>

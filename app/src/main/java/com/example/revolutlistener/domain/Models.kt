@@ -29,6 +29,10 @@ open class Amount(euro: Int, cent: Int, id: Long=0, timestamp: Long = System.cur
         return euro.toFloat() + cent.toFloat() / 100
     }
 
+    fun toInt(): Int {
+        return euro
+    }
+
     override fun toString(): String {
         val centString = if (cent < 10) "0$cent" else cent.toString()
         return "€$euro.$centString"
