@@ -6,20 +6,24 @@
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
         <item name="colorAccent">@color/accentColor</item>
+
         <item name="toolbarStyle">@style/Widget.App.Toolbar</item>
     </style>
 
     <style name="Widget.App.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
 
+
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Toolbar</item>
         <item name="titleTextAppearance">@style/TitleAppearance</item>
+        <item name="paddingStart">130dp</item>
+
 
     </style>
 
     <style name="ThemeOverlay.App.Toolbar" parent="">
 
-        <item name="fontFamily">@font/satisfy</item>
-        <item name="android:fontFamily">@font/satisfy</item>
+
+
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
 
@@ -28,8 +32,12 @@
 
     </style>
 
-    <style name="TitleAppearance" >
+    <style name="TitleAppearance" parent="@android:style/TextAppearance" >
+
+        <item name="fontFamily">@font/satisfy</item>
+        <item name="android:fontFamily">@font/satisfy</item>
         <item name="android:textSize">30sp</item>
+        <item name="android:paddingHorizontal">50dp</item>
     </style>
 
 </resources>
