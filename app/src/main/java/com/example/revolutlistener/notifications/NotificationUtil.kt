@@ -56,7 +56,7 @@ fun createUpdatedBudgetNotification(context: Context, spentToday: Amount, leftTo
     // Semantic change to notification text if user has gone over their budget
     text += if (leftToSpend.euro > 0) "You have $leftToSpend left to spend today."
     else "You have spent ${Amount(leftToSpend.euro * -1, leftToSpend.cent)} " +
-            "over your budget.}"
+            "over your budget."
     postNotification(context, "Ledger.io", text)
 }
 

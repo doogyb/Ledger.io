@@ -67,15 +67,14 @@ class BudgetFragment : Fragment() {
         return binding.root
     }
 
+    // TODO debug why setting the start and end colors doesn't work
     private fun observeGauge(gauge: CustomGauge, budget: Amount) {
 
         val amtInt = (budget.toFloat() * 100).toInt()
-        Log.d(TAG, "amtInt = $amtInt")
         if (amtInt > 0) {
-            Log.d(TAG, "setting stlyle to accentColor")
 
             gauge.value = amtInt
-//            gauge.pointStartColor = R.color.accentColor
+//            gauge.pointStartColor = R.color.primaryLightestColor
 //            gauge.pointEndColor = R.color.accentColor
         }
         else {
