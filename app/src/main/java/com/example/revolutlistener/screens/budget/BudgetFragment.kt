@@ -15,6 +15,7 @@ import com.example.revolutlistener.databinding.BudgetFragmentBinding
 import com.example.revolutlistener.domain.Amount
 import com.example.revolutlistener.notifications.isNotificationServiceEnabled
 import pl.pawelkleczkowski.customgauge.CustomGauge
+import com.example.revolutlistener.util.getViewsByTag
 
 class BudgetFragment : Fragment() {
 
@@ -60,6 +61,9 @@ class BudgetFragment : Fragment() {
             observeGauge(binding.remainingBudgetGuage, it)
         })
 
+        val visStyle = sharedPreferences.getString("budget_visual_style", "none")
+        Log.d(TAG, "visStyle: $visStyle")
+
         return binding.root
     }
 
@@ -68,25 +72,27 @@ class BudgetFragment : Fragment() {
         val amtInt = (budget.toFloat() * 100).toInt()
         Log.d(TAG, "amtInt = $amtInt")
         if (amtInt > 0) {
-            Log.d(TAG, "Setting as accentCOlor")
+            Log.d(TAG, "setting stlyle to accentColor")
+
             gauge.value = amtInt
-            gauge.pointStartColor = R.color.accentColor
-            gauge.pointEndColor = R.color.accentColor
+//            gauge.pointStartColor = R.color.accentColor
+//            gauge.pointEndColor = R.color.accentColor
         }
         else {
-            Log.d(TAG, "Setting as grey")
             gauge.value = 0
-            gauge.pointStartColor = R.color.darkGrey
-            gauge.pointEndColor = R.color.darkGrey
+//            gauge.pointStartColor = R.color.darkGrey
+//            gauge.pointEndColor = R.color.darkGrey
         }
     }
 
     override fun onResume() {
         super.onResume()
-        // Check listener settings onResume and set visibility accordingly
         // TODO LiveData for this param?
         binding.listenerNotSetView.visibility =
             if (context?.let { isNotificationServiceEnabled(it) } == true) View.GONE
             else View.VISIBLE
+
     }
+
+
 }

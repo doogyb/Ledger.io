@@ -24,6 +24,16 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        app:key="appearance_category"
+        app:title="Appearance">
+
+        <ListPreference
+            app:key="budget_visual_style"
+            app:title="Budget Visualisation Style"
+            app:entries="@array/visual_styles"
+            app:entryValues="@array/visual_styles_values"/>
+    </PreferenceCategory>
 
     <PreferenceCategory
         app:key="other_category"

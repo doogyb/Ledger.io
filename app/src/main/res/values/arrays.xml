@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="visual_styles">
+        <item>Gauge</item>
+        <item>Vertical Bar</item>
+        <item>Horizontal Bar</item>
+    </string-array>
+    <string-array name="visual_styles_values">
+        <item>gauge</item>
+        <item>verticalBar</item>
+        <item>horizontalBar</item>
+    </string-array>
+</resources>

@@ -20,7 +20,6 @@
     <style name="ThemeOverlay.App.Toolbar" parent="">
 
 
-
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryVariant">@color/primaryDarkColor</item>
 
@@ -29,7 +28,7 @@
 
     </style>
 
-    <style name="TitleAppearance" parent="@android:style/TextAppearance" >
+    <style name="TitleAppearance" parent="@android:style/TextAppearance">
 
         <item name="fontFamily">@font/satisfy</item>
         <item name="android:fontFamily">@font/satisfy</item>
@@ -37,23 +36,70 @@
 
     </style>
 
-    <style name="Widget">
-    </style>
+    <style name="Widget"></style>
+
     <style name="Widget.ProgressBar">
 
         <item name="android:progressBackgroundTint">@color/darkGrey</item>
         <item name="android:progressTint">@color/accentColor</item>
-
+        <item name="android:layout_width">140dp</item>
+        <item name="android:layout_height">140dp</item>
+        <item name="android:layout_gravity">center</item>
 
     </style>
-
+    <style name="Widget.ProgressBar.Horizontal" parent="@android:style/Widget.ProgressBar.Horizontal">
+        <item name="android:progressBackgroundTint">@color/darkGrey</item>
+        <item name="android:progressTint">@color/accentColor</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_marginHorizontal">10dp</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
     <style name="Widget.ProgressBar.Vertical">
 
         <item name="android:indeterminateOnly">false</item>
         <item name="android:progressDrawable">@drawable/progress_bar_vertical</item>
-        <item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>
+        <item name="android:indeterminateDrawable">
+            @android:drawable/progress_indeterminate_horizontal
+        </item>
         <item name="android:minWidth">1dip</item>
         <item name="android:maxWidth">12dip</item>
     </style>
+
+    <style name="Col">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1.0</item>
+    </style>
+
+    <style name="Col.Gauge">
+        <item name="android:layout_height">140dp</item>
+        <item name="android:layout_width">140dp</item>
+        <item name="android:padding">20dp</item>
+        <item name="gaugePointStartColor">@color/primaryLightestColor</item>
+        <item name="gaugePointEndColor">@color/accentColor</item>
+        <item name="gaugeStartAngle">135</item>
+        <item name="gaugeStartValue">0</item>
+        <item name="gaugeStrokeCap">ROUND</item>
+        <item name="gaugeStrokeColor">@color/darkGrey</item>
+        <item name="gaugeStrokeWidth">12dp</item>
+        <item name="gaugeSweepAngle">270</item>
+
+    </style>
+
+    <style name="Col.TextView">
+        <item name="android:layout_height">40dp</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="Col.TextView.BudgetLabel">
+        <item name="android:textSize">15sp</item>
+        <item name="borderWidth">1px</item>
+    </style>
+
+    <style name="Col.TextView.Amount"></style>
 
 </resources>

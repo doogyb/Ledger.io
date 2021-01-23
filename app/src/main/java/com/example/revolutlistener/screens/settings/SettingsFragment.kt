@@ -7,6 +7,7 @@ import android.text.InputType
 import android.text.TextUtils
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.EditTextPreference
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.example.revolutlistener.R
@@ -58,6 +59,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setOnPreferenceChangeListener { preference, newValue ->
                 viewModel.onSaveInterval(Integer.parseInt(newValue as String))
                 true
+            }
+        }
+
+        findPreference<ListPreference>("budget_visual_style")?.apply {
+            summaryProvider = Preference.SummaryProvider<ListPreference> {
+                it.entry
             }
         }
 

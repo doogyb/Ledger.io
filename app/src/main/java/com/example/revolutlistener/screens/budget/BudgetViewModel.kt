@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import androidx.lifecycle.*
 import androidx.preference.PreferenceManager
+import com.example.revolutlistener.R
 import com.example.revolutlistener.database.AppDatabase
 import com.example.revolutlistener.domain.Amount
 import com.example.revolutlistener.repository.LedgerRepository
@@ -24,11 +25,13 @@ class BudgetViewModel(
     private val budgets = ledgerRepository.budgets
     private val spentToday : LiveData<Amount> = ledgerRepository.spentToday
 
-
     private val sharedPreferences : SharedPreferences =
         PreferenceManager.getDefaultSharedPreferences(application.applicationContext)
 
     private val budgetPreference = SharedPreferenceStringLiveData(sharedPreferences, "budget_preference", "0")
+    val visStyle = SharedPreferenceStringLiveData(sharedPreferences, "budget_visual_style", "none")
+//    val visStyle = sharedPreferences.getString("budget_visual_style", "none")
+
 
     // Cast the budgetPreference to an Amount object EditTextPreference is stored as String)
     val budgetTotal : LiveData<Amount> = Transformations.map(budgetPreference) {
@@ -62,4 +65,6 @@ class BudgetViewModel(
     val dailyRemaining : LiveData<Amount> = Transformations.map(spentToday) {
         dailyLimitAmount.value?.minus(it)
     }
+
+
 }
