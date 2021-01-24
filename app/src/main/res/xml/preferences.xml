@@ -32,7 +32,10 @@
             app:key="budget_visual_style"
             app:title="Budget Visualisation Style"
             app:entries="@array/visual_styles"
-            app:entryValues="@array/visual_styles_values"/>
+            app:entryValues="@array/visual_styles_values"
+            app:defaultValue="gauge"
+            />
+
     </PreferenceCategory>
 
     <PreferenceCategory

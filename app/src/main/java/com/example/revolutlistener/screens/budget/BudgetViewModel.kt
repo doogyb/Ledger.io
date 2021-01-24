@@ -29,7 +29,7 @@ class BudgetViewModel(
         PreferenceManager.getDefaultSharedPreferences(application.applicationContext)
 
     private val budgetPreference = SharedPreferenceStringLiveData(sharedPreferences, "budget_preference", "0")
-    val visStyle = SharedPreferenceStringLiveData(sharedPreferences, "budget_visual_style", "none")
+    val visStyle = SharedPreferenceStringLiveData(sharedPreferences, "budget_visual_style", "gauge")
 //    val visStyle = sharedPreferences.getString("budget_visual_style", "none")
 
 
