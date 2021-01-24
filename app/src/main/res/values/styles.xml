@@ -78,7 +78,7 @@
         <item name="android:layout_height">140dp</item>
         <item name="android:layout_width">140dp</item>
         <item name="android:padding">20dp</item>
-        <item name="gaugePointStartColor">@color/primaryLightestColor</item>
+        <item name="gaugePointStartColor">@color/accentColor</item>
         <item name="gaugePointEndColor">@color/accentColor</item>
         <item name="gaugeStartAngle">135</item>
         <item name="gaugeStartValue">0</item>

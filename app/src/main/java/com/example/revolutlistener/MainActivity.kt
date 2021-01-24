@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         // Hide settings icon when in settings/about, change burger to back icon
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.about_fragment, R.id.settings_fragment -> {
+                R.id.about_fragment, R.id.settings_fragment, R.id.privacy_policy_fragment -> {
 //                    binding.bottomNav.isVisible = false
                     binding.toolbar.setNavigationIcon(R.drawable.back)
                     binding.toolbar.menu.findItem(R.id.settings).isVisible = false
