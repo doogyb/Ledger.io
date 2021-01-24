@@ -19,6 +19,7 @@
         app:title="Notifications">
 
         <SwitchPreferenceCompat
+            android:defaultValue="true"
             app:key="notifications_enabled"
             app:title="Enable message notifications" />
 
@@ -29,12 +30,11 @@
         app:title="Appearance">
 
         <ListPreference
-            app:key="budget_visual_style"
-            app:title="Budget Visualisation Style"
+            app:defaultValue="gauge"
             app:entries="@array/visual_styles"
             app:entryValues="@array/visual_styles_values"
-            app:defaultValue="gauge"
-            />
+            app:key="budget_visual_style"
+            app:title="Budget Visualisation Style" />
 
     </PreferenceCategory>
 
