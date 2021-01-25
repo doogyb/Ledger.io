@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.revolutlistener">
+    package="me.doogyb.ledgerio">
 
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
 
@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="me.doogyb.ledgerio.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,7 +20,7 @@
         </activity>
 
         <service
-            android:name=".notifications.NotificationService"
+            android:name="me.doogyb.ledgerio.notifications.NotificationService"
             android:label="@string/service_name"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
@@ -28,7 +28,7 @@
             </intent-filter>
         </service>
 
-        <receiver android:name=".ResetBudgetReceiver">
+        <receiver android:name="me.doogyb.ledgerio.ResetBudgetReceiver">
 
             <!-- <intent-filter> -->
             <!-- <action android:name="android.service." /> -->
