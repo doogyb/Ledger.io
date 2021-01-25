@@ -1,6 +1,7 @@
 # Personal files
 media/*
 !media/*.gif
+assets/
 # Built application files
 *.apk
 *.ap_
