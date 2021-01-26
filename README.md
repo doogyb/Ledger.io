@@ -5,7 +5,9 @@ Ledger.io is intended to be a simple app which listens to the notifications made
 aggregate the output of these apps to track your spending and notify you of how much you spend in a given day
 and how much you have left to spend in a given budget period.
 
-![Basic Ledger.io Demo](media/demo_v1.1.0.gif)
+<p align="center">
+  <img width="640" height="1142" src="https://i.imgur.com/EMBex7b.gifv">
+</p>
 
 ## Built With
 
