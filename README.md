@@ -6,7 +6,7 @@ aggregate the output of these apps to track your spending and notify you of how 
 and how much you have left to spend in a given budget period.
 
 <p align="center">
-  <img width="640" height="1142" src="https://i.imgur.com/EMBex7b.gifv">
+  <img width="640" height="1142" src="https://i.imgur.com/EMBex7b.gif">
 </p>
 
 ## Built With
